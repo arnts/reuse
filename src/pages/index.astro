@@ -1,0 +1,436 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroHome from '../components/hero/HeroHome.astro';
+import Section from '../components/primitives/Section.astro';
+import Eyebrow from '../components/primitives/Eyebrow.astro';
+import Button from '../components/primitives/Button.astro';
+import AudienceCard from '../components/conversion/AudienceCard.astro';
+import ServiceCard from '../components/conversion/ServiceCard.astro';
+import CTABanner from '../components/conversion/CTABanner.astro';
+import ContactForm from '../components/conversion/ContactForm.astro';
+import TeamCard from '../components/trust/TeamCard.astro';
+import CredentialsStrip from '../components/trust/CredentialsStrip.astro';
+import Quote from '../components/trust/Quote.astro';
+import Gallery from '../components/media/Gallery.astro';
+import Lightbox from '../components/media/Lightbox.astro';
+
+import { audiences } from '../data/audiences';
+import { featuredServices } from '../data/services';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const galleryItems = Array.from({ length: 8 }, (_, i) => ({
+  src: `/images/gallery/${String(i + 1).padStart(2, '0')}.svg`,
+  alt: `Atmosfærebilde ${i + 1} fra atelieret`,
+}));
+
+const valuePoints = [
+  {
+    title: 'Skapende prosesser',
+    text: 'Hender, tanker og kropp flettes sammen rundt materialer som ikke har fasit.',
+  },
+  {
+    title: 'Demokratiske materialer',
+    text: 'Gjenbruksmaterialer har ingen regler — de inviterer alle aldre og kjønn inn på like vilkår.',
+  },
+  {
+    title: 'Et frirom fra det digitale',
+    text: 'Ekte møter, taktil utforskning og pause fra skjermer — for psykisk helse og fellesskap.',
+  },
+];
+---
+
+<BaseLayout
+  title="REuse Atelier — Skapende gjenbruk i Oslo"
+  description="Kreativt gjenbruksatelier i Oslo med workshops, kurs, bursdager og teambuilding. Ledet av to Atelierista utdannet ved Reggio Emilia-instituttet i Stockholm."
+>
+  <HeroHome />
+
+  <!-- 2. Hva er REuse Atelier -->
+  <Section background="paper" padding="default" id="hva-er">
+    <div class="intro">
+      <div class="intro__head fade-in">
+        <Eyebrow>Hva er REuse Atelier?</Eyebrow>
+        <h2>Et åpent atelier hvor materialer som ellers blir kastet, finner nytt liv som verktøy for skapende prosesser.</h2>
+        <p class="intro__lead">
+          Vi er Caroline og Ann-Helen — to Atelierista som driver workshops, kurs, bursdager og foredrag i Oslo. Vi tror at gjenbruksmaterialer stimulerer fantasien, kritisk tenkning og samspill — og at alle kan delta uansett alder eller bakgrunn.
+        </p>
+      </div>
+
+      <ul class="value-grid fade-in">
+        {valuePoints.map((p) => (
+          <li class="value-card">
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <!-- 3. Hvem skaper vi for? -->
+  <Section background="cream" padding="default" id="malgrupper">
+    <div class="section-head fade-in">
+      <Eyebrow>For hvem</Eyebrow>
+      <h2>Hvem skaper vi for?</h2>
+      <p>Vi tilrettelegger ulike opplevelser for fire grupper. Velg den som beskriver deg best — så finner du tilbudene som passer.</p>
+    </div>
+    <div class="audience-grid fade-in">
+      {audiences.map((a) => <AudienceCard audience={a} />)}
+    </div>
+  </Section>
+
+  <!-- 4. Mest etterspurte tilbud -->
+  <Section background="paper" padding="default" id="tilbud">
+    <div class="section-head fade-in">
+      <Eyebrow>Tilbud</Eyebrow>
+      <h2>Våre mest etterspurte tilbud</h2>
+      <p>Tre rammer som folk kommer tilbake til. Alt skreddersys etter din gruppe.</p>
+    </div>
+    <div class="services-grid fade-in">
+      {featuredServices.map((s) => <ServiceCard service={s} showAudience />)}
+    </div>
+    <div class="section-foot fade-in">
+      <Button href={`${base}/tilbud`} variant="secondary" arrow>Se alle tilbud</Button>
+    </div>
+  </Section>
+
+  <!-- 5. Hvorfor skapende gjenbruk virker -->
+  <Section background="moss" padding="default" id="filosofi">
+    <div class="philosophy">
+      <div class="philosophy__head fade-in">
+        <Eyebrow color="cream">Vår tilnærming</Eyebrow>
+        <h2>Hvorfor skapende gjenbruk virker</h2>
+      </div>
+      <div class="philosophy__columns">
+        <div class="fade-in">
+          <p>
+            Reggio Emilia-tradisjonen lærer oss at materialer er språk. Når vi tilbyr gjenbruksmaterialer fremfor ferdige produkter, skifter vi fokus fra <em>resultat</em> til <em>prosess</em>. Det er der den virkelige læringen og opplevelsen ligger.
+          </p>
+          <p>
+            Materialer uten klare regler tvinger oss til å tenke selv. De er en demokratisk inngang som ikke favoriserer de som «kan», men inviterer alle.
+          </p>
+        </div>
+        <div class="fade-in">
+          <Quote attribution="Vår praksis">
+            Det er i prosessene hender, tanker og kropp flettes sammen.
+          </Quote>
+        </div>
+      </div>
+      <div class="philosophy__cta fade-in">
+        <Button href={`${base}/om`} variant="ghost" arrow>Les mer om vår tilnærming</Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 6. Menneskene bak -->
+  <Section background="cream-warm" padding="default" id="team">
+    <div class="section-head fade-in">
+      <Eyebrow>Menneskene bak</Eyebrow>
+      <h2>To Atelierista. Mange års erfaring.</h2>
+      <p>Begge utdannet ved Reggio Emilia-instituttet i Stockholm, og med lang fartstid i barnehagefeltet.</p>
+    </div>
+    <div class="team-grid fade-in">
+      <TeamCard
+        name="Caroline"
+        role="Atelierista"
+        image="/images/team/caroline.svg"
+        imageAlt="Portrett av Caroline"
+        credentials={[
+          'Atelierista — Reggio Emilia-instituttet, Stockholm',
+          'Master i barnehagekunnskap, fordypning estetiske fag — Oslomet',
+          'Lang erfaring med de yngste barna',
+        ]}
+        bio="Caroline har et brennende engasjement for estetiske prosesser og er særlig opptatt av hvordan de minste møter materialer på sine egne premisser."
+      />
+      <TeamCard
+        name="Ann-Helen"
+        role="Atelierista og Pedagogista"
+        image="/images/team/ann-helen.svg"
+        imageAlt="Portrett av Ann-Helen"
+        credentials={[
+          'Atelierista og Pedagogista — Reggio Emilia-instituttet, Stockholm',
+          'Utdannet barnehagelærer',
+          'Lang erfaring med de eldste barna',
+        ]}
+        bio="Ann-Helen kombinerer pedagogikkfaglig dybde med kreativ praksis — særlig i arbeid med barn på vei mot skolealder, ungdom og voksne."
+      />
+    </div>
+    <div class="section-foot fade-in">
+      <Button href={`${base}/om`} variant="ghost" arrow>Møt oss</Button>
+    </div>
+  </Section>
+
+  <!-- 7. Atmosfære & prosess -->
+  <Section background="paper" padding="default" id="galleri">
+    <div class="section-head fade-in">
+      <Eyebrow>Atmosfære</Eyebrow>
+      <h2>Slik ser prosessene ut</h2>
+      <p>Et lite utvalg fra atelieret. Klikk på et bilde for å se det større.</p>
+    </div>
+    <div class="fade-in">
+      <Gallery items={galleryItems} columns={4} />
+    </div>
+  </Section>
+
+  <!-- 8. Faglig troverdighet -->
+  <Section background="cream" padding="small" id="troverdighet">
+    <div class="fade-in">
+      <CredentialsStrip />
+    </div>
+  </Section>
+
+  <!-- 9. Avsluttende kontakt -->
+  <Section background="cream-warm" padding="default" id="kontakt">
+    <div class="closing-grid">
+      <div class="closing-text fade-in">
+        <Eyebrow>Ta kontakt</Eyebrow>
+        <h2>La oss skape noe sammen</h2>
+        <p>
+          Vi tar imot forespørsler om kurs, workshops, bursdager, teambuilding, foredrag og studiebesøk. Fortell hva du har i tankene — så svarer vi innen 2 virkedager.
+        </p>
+        <ul class="closing-list">
+          <li>Skreddersys etter alder og gruppe</li>
+          <li>Vi reiser til dere — eller dere kommer hit</li>
+          <li>Hyggelig og uforpliktende avklaring</li>
+        </ul>
+      </div>
+      <div class="closing-form fade-in">
+        <ContactForm variant="compact" />
+      </div>
+    </div>
+  </Section>
+
+  <Lightbox />
+</BaseLayout>
+
+<style>
+  /* Intro / Hva er REuse Atelier */
+  .intro__head {
+    max-width: 760px;
+    margin-inline: auto;
+    text-align: center;
+    margin-bottom: var(--space-5);
+  }
+
+  .intro__head h2 {
+    margin-bottom: var(--space-3);
+  }
+
+  .intro__lead {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    max-width: none;
+    margin-inline: auto;
+  }
+
+  .value-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 700px) {
+    .value-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .value-card {
+    padding: var(--space-3);
+    background: var(--cream);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--clay);
+  }
+
+  .value-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-1);
+    color: var(--moss);
+  }
+
+  .value-card p {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+    line-height: 1.6;
+  }
+
+  /* Felles seksjon-header */
+  .section-head {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto var(--space-5);
+  }
+
+  .section-head h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .section-head p {
+    color: var(--ink-soft);
+    margin-inline: auto;
+  }
+
+  .section-foot {
+    margin-top: var(--space-4);
+    text-align: center;
+  }
+
+  /* Målgruppe-grid */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 600px) {
+    .audience-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .audience-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Tjenester-grid */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 720px) {
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Filosofi */
+  .philosophy {
+    color: var(--cream);
+  }
+
+  .philosophy__head {
+    margin-bottom: var(--space-4);
+    max-width: 760px;
+  }
+
+  .philosophy__head h2 {
+    color: var(--cream);
+  }
+
+  .philosophy__columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .philosophy__columns {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+    }
+  }
+
+  .philosophy p {
+    color: rgba(245, 239, 230, 0.92);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: none;
+  }
+
+  .philosophy em {
+    color: var(--ochre);
+    font-style: italic;
+  }
+
+  .philosophy :global(.quote blockquote) {
+    color: var(--cream);
+  }
+
+  .philosophy :global(.quote__mark) {
+    color: var(--ochre);
+  }
+
+  .philosophy :global(.quote figcaption) {
+    color: rgba(245, 239, 230, 0.7);
+  }
+
+  .philosophy__cta {
+    margin-top: var(--space-4);
+  }
+
+  .philosophy :global(.btn--ghost) {
+    color: var(--ochre);
+  }
+
+  .philosophy :global(.btn--ghost:hover) {
+    background: rgba(245, 239, 230, 0.08);
+    color: var(--cream);
+  }
+
+  /* Team-grid */
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 800px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Avsluttende kontakt */
+  .closing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .closing-grid {
+      grid-template-columns: 1fr 1.4fr;
+      gap: var(--space-6);
+    }
+  }
+
+  .closing-text h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .closing-text p {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin-bottom: var(--space-3);
+  }
+
+  .closing-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .closing-list li {
+    color: var(--ink);
+    font-size: 0.96rem;
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .closing-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 14px;
+    height: 1.5px;
+    background: var(--clay);
+  }
+</style>

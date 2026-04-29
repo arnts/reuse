@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroPage from '../components/hero/HeroPage.astro';
+import Section from '../components/primitives/Section.astro';
+import Eyebrow from '../components/primitives/Eyebrow.astro';
+import ContactForm from '../components/conversion/ContactForm.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout
+  title="Kontakt — REuse Atelier | Send forespørsel"
+  description="Send oss en forespørsel om kurs, workshop, bursdag, teambuilding eller foredrag. Vi svarer som regel innen 2 virkedager."
+>
+  <HeroPage
+    eyebrow="Kontakt"
+    title="Send oss en forespørsel"
+    description="Det er ingen forventning om ferdige planer. Bare fortell oss litt om hva du tenker — så finner vi formen sammen."
+    background="cream"
+  />
+
+  <Section background="cream" padding="default">
+    <div class="contact-grid">
+      <aside class="contact-info">
+        <div class="info-block fade-in">
+          <Eyebrow>Hva skjer videre</Eyebrow>
+          <h2>Slik håndterer vi forespørselen</h2>
+          <ol class="steps">
+            <li>
+              <span class="step-num">1</span>
+              <div>
+                <strong>Du sender forespørsel</strong>
+                <p>Bare en kort beskrivelse av hva du tenker. Du trenger ingen ferdig plan.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <div>
+                <strong>Vi svarer innen 2 virkedager</strong>
+                <p>Vi tar kontakt på e-post for å avklare ramme, dato og forventninger.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <div>
+                <strong>Vi finner formen sammen</strong>
+                <p>Du får et konkret tilbud. Du forplikter ingenting før vi er enige om alt.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="info-block fade-in">
+          <Eyebrow>Andre måter</Eyebrow>
+          <h3>Sosialt</h3>
+          <ul class="contact-links">
+            <li>
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Instagram (lansering kommer)
+                <span class="arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="info-block fade-in">
+          <Eyebrow>Sted</Eyebrow>
+          <h3>Hvor finner du oss</h3>
+          <p>
+            Vi etablerer atelieret i samarbeid med et arkitektfirma, med planlagte lokaler på <strong>Grønland / Tøyen</strong> i Oslo. Til workshops og kurs som er på oppdrag, kommer vi gjerne ut til dere.
+          </p>
+        </div>
+      </aside>
+
+      <div class="contact-form-col fade-in">
+        <ContactForm />
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  @media (min-width: 1000px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1.4fr;
+      gap: var(--space-6);
+    }
+  }
+
+  .info-block {
+    margin-bottom: var(--space-5);
+  }
+
+  .info-block h2,
+  .info-block h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .info-block p {
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .steps li {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--clay);
+    color: var(--cream);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .steps strong {
+    display: block;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .steps p {
+    font-size: 0.94rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .contact-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+</style>

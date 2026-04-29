@@ -1,0 +1,177 @@
+---
+import type { Service } from '../../data/services';
+import { audienceById } from '../../data/audiences';
+
+interface Props {
+  service: Service;
+  showAudience?: boolean;
+}
+
+const { service, showAudience = false } = Astro.props;
+const audience = audienceById(service.audienceId);
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const contactHref = `${base}/kontakt?tjeneste=${service.id}${
+  audience ? `&type=${audience.contactType}` : ''
+}`;
+---
+
+<article class="service-card">
+  <div class="service-card__image">
+    <img src={`${base}${service.image}`} alt={service.imageAlt} loading="lazy" />
+  </div>
+  <div class="service-card__body">
+    {
+      showAudience && audience && (
+        <span class="service-card__audience">
+          For {audience.shortTitle.toLowerCase()}
+        </span>
+      )
+    }
+    <h3 class="service-card__title">{service.title}</h3>
+    <p class="service-card__summary">{service.summary}</p>
+
+    <dl class="service-card__meta">
+      <div>
+        <dt>For hvem</dt>
+        <dd>{service.forWhom}</dd>
+      </div>
+      <div>
+        <dt>Format</dt>
+        <dd>{service.format}</dd>
+      </div>
+    </dl>
+
+    <p class="service-card__takeaway">
+      <span class="service-card__takeaway-label">Du sitter igjen med:</span>
+      {service.takeaway}
+    </p>
+
+    <a href={contactHref} class="btn btn--primary btn--small service-card__cta">
+      Forespør {service.title.toLowerCase()}
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</article>
+
+<style>
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow var(--transition-medium), transform var(--transition-medium);
+    height: 100%;
+    border: 1px solid var(--hairline);
+  }
+
+  .service-card:hover {
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-2px);
+  }
+
+  .service-card__image {
+    aspect-ratio: 16 / 10;
+    background: var(--cream-warm);
+    overflow: hidden;
+  }
+
+  .service-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-medium);
+  }
+
+  .service-card:hover .service-card__image img {
+    transform: scale(1.03);
+  }
+
+  .service-card__body {
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    flex: 1;
+  }
+
+  .service-card__audience {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ochre-dark);
+  }
+
+  .service-card__title {
+    font-size: 1.4rem;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .service-card__summary {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    max-width: none;
+  }
+
+  .service-card__meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--hairline);
+    margin-top: var(--space-1);
+  }
+
+  @media (min-width: 480px) {
+    .service-card__meta {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .service-card__meta dt {
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin-bottom: 2px;
+  }
+
+  .service-card__meta dd {
+    font-size: 0.92rem;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .service-card__takeaway {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--clay);
+    max-width: none;
+  }
+
+  .service-card__takeaway-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--clay);
+    margin-bottom: 2px;
+  }
+
+  .service-card__cta {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+</style>

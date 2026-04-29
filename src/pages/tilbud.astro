@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroPage from '../components/hero/HeroPage.astro';
+import Section from '../components/primitives/Section.astro';
+import Eyebrow from '../components/primitives/Eyebrow.astro';
+import ServiceCard from '../components/conversion/ServiceCard.astro';
+import CTABanner from '../components/conversion/CTABanner.astro';
+
+import { audiences } from '../data/audiences';
+import { servicesByAudience } from '../data/services';
+---
+
+<BaseLayout
+  title="Tilbud — REuse Atelier | Workshops, kurs, bursdager og teambuilding i Oslo"
+  description="Se hva vi tilbyr: kurs og veiledning for pedagoger, kreative bursdager og workshops for barn, teambuilding for bedrifter, og åpne arrangementer i Oslo."
+>
+  <HeroPage
+    eyebrow="Tilbud"
+    title="Skapende rammer for ulike aldre og grupper"
+    description="Alle tilbudene våre tilpasses gruppen, aldersspennet og rammen. Velg den kategorien som passer deg."
+  />
+
+  {
+    audiences.map((audience, idx) => {
+      const services = servicesByAudience(audience.id);
+      const bg = idx % 2 === 0 ? 'paper' : 'cream-warm';
+      return (
+        <Section background={bg} padding="default" id={audience.id}>
+          <div class="audience-section-head fade-in">
+            <Eyebrow color={idx % 2 === 0 ? 'ochre' : 'clay'}>
+              {`0${idx + 1}`} · {audience.shortTitle}
+            </Eyebrow>
+            <h2>{audience.title}</h2>
+            <p class="audience-section-tagline">{audience.tagline}</p>
+            <p class="audience-section-desc">{audience.description}</p>
+          </div>
+          <div class="services-grid fade-in">
+            {services.map((s) => (
+              <ServiceCard service={s} />
+            ))}
+          </div>
+        </Section>
+      );
+    })
+  }
+
+  <Section background="moss" padding="default">
+    <CTABanner
+      eyebrow="Klar for noe konkret?"
+      title="Fortell oss hva du tenker — vi finner formen sammen."
+      description="Vi tar hånd om alt fra første samtale til avsluttet workshop. Ingen forespørsel er for liten eller for stor."
+      primaryLabel="Send forespørsel"
+      secondaryLabel="Se menneskene bak"
+      secondaryHref={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/om`}
+    />
+  </Section>
+</BaseLayout>
+
+<style>
+  .audience-section-head {
+    margin-bottom: var(--space-5);
+    max-width: 760px;
+  }
+
+  .audience-section-head h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .audience-section-tagline {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--clay);
+    font-style: italic;
+    margin-bottom: var(--space-2);
+  }
+
+  .audience-section-desc {
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 720px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1080px) {
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

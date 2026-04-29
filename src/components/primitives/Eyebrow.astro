@@ -1,0 +1,46 @@
+---
+interface Props {
+  color?: 'ochre' | 'clay' | 'cream';
+  class?: string;
+}
+
+const { color = 'ochre', class: className = '' } = Astro.props;
+---
+
+<span class:list={['eyebrow', `eyebrow--${color}`, className]}>
+  <slot />
+</span>
+
+<style>
+  .eyebrow {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: var(--space-2);
+  }
+
+  .eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1.5px;
+    margin-right: var(--space-1);
+    vertical-align: middle;
+    background: currentColor;
+  }
+
+  .eyebrow--ochre {
+    color: var(--ochre-dark);
+  }
+
+  .eyebrow--clay {
+    color: var(--clay);
+  }
+
+  .eyebrow--cream {
+    color: var(--cream);
+  }
+</style>

@@ -1,0 +1,438 @@
+---
+import { services } from '../../data/services';
+
+interface Props {
+  /** Mindre variant brukt i avsluttende seksjoner — full står på /kontakt */
+  variant?: 'default' | 'compact';
+  showHeading?: boolean;
+}
+
+const { variant = 'default', showHeading = true } = Astro.props;
+
+// Formspree-endpoint — settes via env-variabel slik at det er trygt å committe
+const endpoint = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT ?? '';
+const isConfigured = endpoint.length > 0;
+
+const inquiryTypes = [
+  { value: 'privat', label: 'Privat' },
+  { value: 'virksomhet', label: 'Bedrift / organisasjon' },
+  { value: 'pedagog', label: 'Pedagog / institusjon' },
+  { value: 'annet', label: 'Annet' },
+];
+---
+
+<div class:list={['contact-form-wrap', `contact-form-wrap--${variant}`]}>
+  {showHeading && (
+    <div class="contact-form-heading">
+      <p class="contact-form-eyebrow">Send forespørsel</p>
+      <h2>Fortell oss om planen din</h2>
+      <p class="contact-form-meta">
+        Vi svarer som regel innen <strong>2 virkedager</strong>. Felter merket med * er påkrevd.
+      </p>
+    </div>
+  )}
+
+  {!isConfigured && (
+    <p class="contact-form-warning">
+      <strong>Skjemaet er ikke ferdig konfigurert.</strong> Sett miljøvariabelen
+      <code>PUBLIC_FORMSPREE_ENDPOINT</code> til Formspree-endpointet før deploy.
+    </p>
+  )}
+
+  <form
+    class="contact-form"
+    action={endpoint}
+    method="POST"
+    novalidate
+    data-contact-form
+  >
+    <div class="form-grid">
+      <label class="field">
+        <span class="field__label">Navn *</span>
+        <input type="text" name="name" required autocomplete="name" />
+      </label>
+
+      <label class="field">
+        <span class="field__label">E-post *</span>
+        <input type="email" name="email" required autocomplete="email" />
+      </label>
+
+      <label class="field">
+        <span class="field__label">Telefon</span>
+        <input type="tel" name="phone" autocomplete="tel" />
+      </label>
+
+      <label class="field">
+        <span class="field__label">Antall deltakere</span>
+        <input type="number" name="participants" min="1" />
+      </label>
+
+      <fieldset class="field field--span">
+        <legend class="field__label">Type henvendelse *</legend>
+        <div class="radio-group" role="radiogroup">
+          {inquiryTypes.map((type, i) => (
+            <label class="radio-label">
+              <input
+                type="radio"
+                name="inquiry_type"
+                value={type.value}
+                required={i === 0}
+                data-inquiry-type
+              />
+              <span>{type.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <label class="field field--span">
+        <span class="field__label">Hva gjelder det? *</span>
+        <select name="service" required data-service-select>
+          <option value="">Velg fra listen…</option>
+          {services.map((s) => (
+            <option value={s.id}>{s.title}</option>
+          ))}
+          <option value="annet">Annet</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span class="field__label">Ønsket dato (hvis aktuelt)</span>
+        <input type="date" name="preferred_date" />
+      </label>
+
+      <label class="field field--span">
+        <span class="field__label">Melding *</span>
+        <textarea
+          name="message"
+          rows="5"
+          required
+          placeholder="Fortell kort hva du tenker — alder, ønsker, ramme. Vi tar kontakt for resten."
+        ></textarea>
+      </label>
+
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="honeypot" aria-hidden="true" />
+    </div>
+
+    <div class="form-footer">
+      <button type="submit" class="btn btn--primary" data-submit-btn>
+        Send forespørsel
+        <span class="arrow" aria-hidden="true">→</span>
+      </button>
+      <p class="form-note">Vi deler aldri opplysningene dine med andre.</p>
+    </div>
+
+    <div class="form-status" data-form-status hidden></div>
+  </form>
+</div>
+
+<style>
+  .contact-form-wrap {
+    background: var(--paper);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    border: 1px solid var(--hairline);
+  }
+
+  @media (min-width: 768px) {
+    .contact-form-wrap {
+      padding: var(--space-5);
+    }
+  }
+
+  .contact-form-wrap--compact {
+    padding: var(--space-3);
+  }
+
+  .contact-form-heading {
+    margin-bottom: var(--space-4);
+  }
+
+  .contact-form-eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ochre-dark);
+    margin-bottom: var(--space-1);
+  }
+
+  .contact-form-heading h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .contact-form-meta {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+  }
+
+  .contact-form-warning {
+    background: var(--cream-warm);
+    color: var(--ink);
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--clay);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .contact-form-warning code {
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    background: var(--paper);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  @media (min-width: 600px) {
+    .form-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field--span {
+    grid-column: 1 / -1;
+  }
+
+  .field__label {
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+
+  fieldset.field {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .field input[type='text'],
+  .field input[type='email'],
+  .field input[type='tel'],
+  .field input[type='number'],
+  .field input[type='date'],
+  .field select,
+  .field textarea {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    padding: 12px 14px;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-sm);
+    background: var(--cream);
+    color: var(--ink);
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+    width: 100%;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--moss);
+    background: var(--paper);
+    outline: none;
+  }
+
+  .field input:invalid:not(:placeholder-shown):not(:focus),
+  .field select:invalid:not(:focus),
+  .field textarea:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: var(--clay);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .radio-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-1);
+    margin-top: 6px;
+  }
+
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--cream);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+    font-size: 0.95rem;
+  }
+
+  .radio-label:hover {
+    border-color: var(--moss);
+  }
+
+  .radio-label input[type='radio'] {
+    accent-color: var(--moss);
+    margin: 0;
+  }
+
+  .radio-label:has(input:checked) {
+    border-color: var(--moss);
+    background: var(--paper);
+  }
+
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .form-footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--hairline);
+  }
+
+  @media (min-width: 600px) {
+    .form-footer {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .form-note {
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+    margin: 0;
+  }
+
+  .form-status {
+    margin-top: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: 0.96rem;
+  }
+
+  .form-status[data-state='success'] {
+    background: var(--moss);
+    color: var(--cream);
+    border-left: 4px solid var(--ochre);
+  }
+
+  .form-status[data-state='error'] {
+    background: var(--cream-warm);
+    color: var(--ink);
+    border-left: 4px solid var(--clay);
+  }
+
+  .form-status[data-state='success'] strong {
+    color: var(--cream);
+  }
+</style>
+
+<script>
+  type FormState = 'idle' | 'submitting' | 'success' | 'error';
+
+  function initContactForm(form: HTMLFormElement) {
+    const status = form.querySelector<HTMLDivElement>('[data-form-status]');
+    const submitBtn = form.querySelector<HTMLButtonElement>('[data-submit-btn]');
+    const serviceSelect = form.querySelector<HTMLSelectElement>('[data-service-select]');
+    const inquiryRadios = form.querySelectorAll<HTMLInputElement>('[data-inquiry-type]');
+
+    // Forhåndsutfylling fra URL-parametre
+    const params = new URLSearchParams(window.location.search);
+    const tjeneste = params.get('tjeneste');
+    const type = params.get('type');
+
+    if (tjeneste && serviceSelect) {
+      const option = Array.from(serviceSelect.options).find((o) => o.value === tjeneste);
+      if (option) serviceSelect.value = tjeneste;
+    }
+
+    if (type) {
+      inquiryRadios.forEach((radio) => {
+        radio.checked = radio.value === type;
+      });
+    }
+
+    function setState(state: FormState, message?: string) {
+      if (!status || !submitBtn) return;
+      switch (state) {
+        case 'submitting':
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sender…';
+          status.hidden = true;
+          break;
+        case 'success':
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send forespørsel <span class="arrow" aria-hidden="true">→</span>';
+          status.hidden = false;
+          status.dataset.state = 'success';
+          status.innerHTML = `<strong>Takk!</strong> ${message ?? 'Vi har mottatt henvendelsen din og svarer innen 2 virkedager.'} I mellomtiden — følg oss gjerne på <a href="https://www.instagram.com/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Instagram</a>.`;
+          form.reset();
+          break;
+        case 'error':
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send forespørsel <span class="arrow" aria-hidden="true">→</span>';
+          status.hidden = false;
+          status.dataset.state = 'error';
+          status.innerHTML = `<strong>Noe gikk galt.</strong> ${message ?? 'Vennligst prøv igjen, eller skriv direkte til oss.'}`;
+          break;
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!form.action) {
+        setState('error', 'Skjemaet er ikke konfigurert. Skriv direkte til oss på e-post i mellomtiden.');
+        return;
+      }
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      setState('submitting');
+
+      const data = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+
+        if (response.ok) {
+          setState('success');
+          status?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          const json = await response.json().catch(() => null);
+          setState('error', json?.error ?? undefined);
+        }
+      } catch {
+        setState('error', 'Det oppstod en nettverksfeil. Sjekk forbindelsen og prøv på nytt.');
+      }
+    });
+  }
+
+  document.querySelectorAll<HTMLFormElement>('[data-contact-form]').forEach(initContactForm);
+</script>

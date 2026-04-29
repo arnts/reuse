@@ -1,0 +1,296 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroPage from '../components/hero/HeroPage.astro';
+import Section from '../components/primitives/Section.astro';
+import Eyebrow from '../components/primitives/Eyebrow.astro';
+import TeamCard from '../components/trust/TeamCard.astro';
+import CredentialsStrip from '../components/trust/CredentialsStrip.astro';
+import Quote from '../components/trust/Quote.astro';
+import CTABanner from '../components/conversion/CTABanner.astro';
+import Gallery from '../components/media/Gallery.astro';
+import Lightbox from '../components/media/Lightbox.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const galleryItems = Array.from({ length: 8 }, (_, i) => ({
+  src: `/images/gallery/${String(i + 9).padStart(2, '0')}.svg`,
+  alt: `Detalj fra atelieret ${i + 1}`,
+}));
+
+const personJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Caroline',
+    jobTitle: 'Atelierista',
+    alumniOf: [
+      'Reggio Emilia-instituttet, Stockholm',
+      { '@type': 'EducationalOrganization', name: 'Oslomet' },
+    ],
+    worksFor: { '@type': 'Organization', name: 'REuse Atelier' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Ann-Helen',
+    jobTitle: 'Atelierista og Pedagogista',
+    alumniOf: ['Reggio Emilia-instituttet, Stockholm'],
+    worksFor: { '@type': 'Organization', name: 'REuse Atelier' },
+  },
+];
+---
+
+<BaseLayout
+  title="Om oss — REuse Atelier | To Atelierista i Oslo"
+  description="Caroline og Ann-Helen er to Atelierista utdannet ved Reggio Emilia-instituttet i Stockholm. Møt menneskene bak REuse Atelier og se hva som driver oss."
+>
+  <HeroPage
+    eyebrow="Om oss"
+    title="To Atelierista, lang fartstid og et felles engasjement."
+    description="Vi er Caroline og Ann-Helen. Begge er utdannet ved Reggio Emilia-instituttet i Stockholm, og begge har jobbet i barnehagefeltet i mange år."
+  />
+
+  <Section background="paper" padding="default">
+    <div class="why-grid">
+      <div class="why-text fade-in">
+        <Eyebrow>Hvorfor vi startet</Eyebrow>
+        <h2>Et atelier som svarer på en samtid</h2>
+        <p>
+          Vi lever i en verden av uro, der barn og voksne bruker mer tid med skjermer enn med hverandre. Samtidig vet vi — fra både forskning og egen praksis — at kreative prosesser er bra for psykisk helse, fellesskap og det å føle seg sett.
+        </p>
+        <p>
+          REuse Atelier er vårt svar. Et fysisk rom hvor materialer som ellers blir kastet, blir verktøy for skapende prosesser. En arena for å bygge tilhørighet og skape pause fra det digitale. Og en plass hvor pedagogikk, estetikk og bærekraft møtes.
+        </p>
+      </div>
+      <aside class="why-aside fade-in">
+        <Quote attribution="Vår filosofi" size="default">
+          Gjenbruksmaterialer har ingen regler. På den måten blir de et demokratisk materiale som appellerer til alle kjønn og ulike aldrer.
+        </Quote>
+      </aside>
+    </div>
+  </Section>
+
+  <Section background="cream-warm" padding="default">
+    <div class="section-head fade-in">
+      <Eyebrow color="clay">Menneskene</Eyebrow>
+      <h2>Caroline og Ann-Helen</h2>
+    </div>
+    <div class="team-grid fade-in">
+      <TeamCard
+        name="Caroline"
+        role="Atelierista"
+        image="/images/team/caroline.svg"
+        imageAlt="Portrett av Caroline"
+        credentials={[
+          'Atelierista — Reggio Emilia-instituttet, Stockholm',
+          'Master i barnehagekunnskap, fordypning estetiske fag — Oslomet',
+          'Lang erfaring med de yngste barna',
+        ]}
+        bio="Caroline brenner for de yngstes møte med materialer. Hun er opptatt av hvordan barn på sine egne premisser utforsker og finner mening — og hvordan det estetiske blir et språk i seg selv."
+      />
+      <TeamCard
+        name="Ann-Helen"
+        role="Atelierista og Pedagogista"
+        image="/images/team/ann-helen.svg"
+        imageAlt="Portrett av Ann-Helen"
+        credentials={[
+          'Atelierista og Pedagogista — Reggio Emilia-instituttet, Stockholm',
+          'Utdannet barnehagelærer',
+          'Lang erfaring med de eldste barna',
+        ]}
+        bio="Ann-Helen forener pedagogikkfaglig dybde med kreativ praksis. Hun har en særlig forkjærlighet for arbeidet med barn på vei mot skolealder, ungdom og voksne — og for veiledning av andre pedagoger."
+      />
+    </div>
+  </Section>
+
+  <Section background="paper" padding="default">
+    <div class="philosophy-grid">
+      <div class="fade-in">
+        <Eyebrow>Vår faglige bakgrunn</Eyebrow>
+        <h2>Forankret i Reggio Emilia, formet av Oslo</h2>
+        <p>
+          Reggio Emilia-tradisjonen er en filosofi mer enn en metode. Den ser barnet som en kompetent skaper, og materialer som språk. Vi har begge utdannet oss som Atelierista i Stockholm, og bringer denne tradisjonen til vår praksis i Oslo.
+        </p>
+        <p>
+          Felles for oss er en lang fartstid i barnehagefeltet — Caroline med de yngste, Ann-Helen med de eldste. Vi har sett mange aldre, mange dagsformer, og mange måter materialer kan åpne dører på.
+        </p>
+      </div>
+      <div class="material-side fade-in">
+        <h3>Materialene vi elsker</h3>
+        <ul class="material-list">
+          <li>
+            <strong>Gjenbruksmaterialer</strong>
+            <span>— pappruller, stoffrester, tråder, knapper, glass, plast og papir uten fasit.</span>
+          </li>
+          <li>
+            <strong>Naturmaterialer</strong>
+            <span>— pinner, kongler, steiner, blader, sand og leire som forteller historier av seg selv.</span>
+          </li>
+          <li>
+            <strong>Lys og skygge</strong>
+            <span>— overhead-projektor, lykter og lysbord som lar materialene danse.</span>
+          </li>
+          <li>
+            <strong>Verktøy som lar deg utforske</strong>
+            <span>— sakser, lim, tråd, hammer, nål — verktøy som inviterer hånden til å tenke.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section background="cream" padding="default">
+    <div class="section-head fade-in">
+      <Eyebrow>Atelieret</Eyebrow>
+      <h2>Vårt rom</h2>
+      <p>
+        Vi etablerer atelieret i samarbeid med et arkitektfirma, med planlagte lokaler på Grønland/Tøyen i Oslo. Et rom hvor estetikk, pedagogikk og bærekraft skal kunne møtes hver eneste dag.
+      </p>
+    </div>
+    <div class="fade-in">
+      <Gallery items={galleryItems} columns={4} />
+    </div>
+  </Section>
+
+  <Section background="cream-warm" padding="small">
+    <div class="fade-in">
+      <CredentialsStrip />
+    </div>
+  </Section>
+
+  <Section background="moss" padding="default">
+    <CTABanner
+      eyebrow="Vil du jobbe med oss?"
+      title="Vi tar imot forespørsler i hele Oslo og omegn."
+      description="Vi reiser ut, eller dere kommer hit. Fortell hva du tenker — så finner vi formen sammen."
+      primaryLabel="Send forespørsel"
+      secondaryLabel="Se tilbud"
+      secondaryHref={`${base}/tilbud`}
+    />
+  </Section>
+
+  <Lightbox />
+
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(personJsonLd)}
+  />
+</BaseLayout>
+
+<style>
+  .section-head {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto var(--space-5);
+  }
+
+  .section-head h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .section-head p {
+    color: var(--ink-soft);
+    margin-inline: auto;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .why-grid {
+      grid-template-columns: 1.4fr 1fr;
+      gap: var(--space-6);
+    }
+  }
+
+  .why-text h2 {
+    margin-bottom: var(--space-3);
+  }
+
+  .why-text p {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .why-aside {
+    background: var(--cream);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    border-left: 4px solid var(--clay);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 800px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 900px) {
+    .philosophy-grid {
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-6);
+    }
+  }
+
+  .philosophy-grid h2 {
+    margin-bottom: var(--space-3);
+  }
+
+  .philosophy-grid p {
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    line-height: 1.65;
+  }
+
+  .material-side {
+    background: var(--cream);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+  }
+
+  .material-side h3 {
+    color: var(--moss);
+    margin-bottom: var(--space-2);
+  }
+
+  .material-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .material-list li {
+    border-left: 2px solid var(--ochre);
+    padding-left: var(--space-2);
+    line-height: 1.55;
+  }
+
+  .material-list strong {
+    display: block;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .material-list span {
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+  }
+</style>

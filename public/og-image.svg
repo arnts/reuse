@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5EFE6"/>
+      <stop offset="100%" stop-color="#EDE3D3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1050" cy="120" r="180" fill="#C9A55C" opacity="0.55"/>
+  <circle cx="120" cy="540" r="140" fill="#B85C3F" opacity="0.45"/>
+  <text x="80" y="280" font-family="Georgia, serif" font-size="60" fill="#2C2825">REuse Atelier</text>
+  <text x="80" y="370" font-family="Georgia, serif" font-style="italic" font-size="42" fill="#B85C3F">Skapende gjenbruk i Oslo</text>
+  <text x="80" y="440" font-family="sans-serif" font-size="26" fill="#2C2825">Workshops · Kurs · Bursdager · Teambuilding</text>
+  <line x1="80" y1="490" x2="280" y2="490" stroke="#2C4A3E" stroke-width="3"/>
+</svg>

@@ -1,0 +1,344 @@
+/* =========================================================================
+   REuse Atelier — designtokens, reset, typografi
+   ========================================================================= */
+
+:root {
+  /* farger */
+  --clay: #B85C3F;
+  --clay-dark: #9A4A30;
+  --ochre: #C9A55C;
+  --ochre-dark: #A88841;
+  --cream: #F5EFE6;
+  --cream-warm: #EDE3D3;
+  --moss: #2C4A3E;
+  --moss-dark: #1F3429;
+  --ink: #2C2825;
+  --ink-soft: #5A5048;
+  --paper: #FFFFFF;
+  --hairline: rgba(44, 40, 37, 0.12);
+  --shadow-soft: 0 4px 24px rgba(44, 40, 37, 0.08);
+  --shadow-lift: 0 8px 32px rgba(44, 40, 37, 0.12);
+
+  /* typografi */
+  --font-serif: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* skala */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 96px;
+  --space-8: 128px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --max-content: 1200px;
+  --max-prose: 680px;
+
+  --header-height: 72px;
+  --header-height-shrunk: 60px;
+
+  --transition-fast: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-medium: 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =========================================================================
+   Reset
+   ========================================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--cream);
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  min-height: 100vh;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--moss);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--clay);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+button {
+  font: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* =========================================================================
+   Typografi
+   ========================================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  font-variation-settings: 'opsz' 144, 'SOFT' 30;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 400;
+}
+
+h3 {
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+p {
+  max-width: var(--max-prose);
+}
+
+p + p {
+  margin-top: 1em;
+}
+
+strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+em {
+  font-style: italic;
+}
+
+::selection {
+  background: var(--ochre);
+  color: var(--ink);
+}
+
+/* =========================================================================
+   Utilities
+   ========================================================================= */
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-2);
+  background: var(--moss);
+  color: var(--cream);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  z-index: 1000;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-content);
+  margin: 0 inline;
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-inline: var(--space-5);
+  }
+}
+
+/* =========================================================================
+   Animasjoner — fade-in på scroll (lett, valgfri klasse)
+   ========================================================================= */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms ease-out, transform 700ms ease-out;
+}
+
+.fade-in.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================================================================
+   Knapper (delt mellom Button.astro og <button> elementer)
+   ========================================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: 48px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast),
+    color var(--transition-fast), box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--primary {
+  background: var(--moss);
+  color: var(--cream);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn--primary:hover {
+  background: var(--moss-dark);
+  color: var(--cream);
+  box-shadow: var(--shadow-lift);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--moss);
+  border: 1.5px solid var(--moss);
+}
+
+.btn--secondary:hover {
+  background: var(--moss);
+  color: var(--cream);
+}
+
+.btn--clay {
+  background: var(--clay);
+  color: var(--cream);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn--clay:hover {
+  background: var(--clay-dark);
+  color: var(--cream);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--moss);
+  padding-inline: var(--space-2);
+}
+
+.btn--ghost:hover {
+  color: var(--clay);
+  background: rgba(184, 92, 63, 0.06);
+}
+
+.btn--small {
+  min-height: 40px;
+  font-size: 0.94rem;
+}
+
+.btn .arrow {
+  transition: transform var(--transition-fast);
+}
+
+.btn:hover .arrow {
+  transform: translateX(3px);
+}

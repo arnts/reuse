@@ -1,0 +1,138 @@
+---
+import Button from '../primitives/Button.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  variant?: 'moss' | 'clay' | 'paper';
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const {
+  eyebrow,
+  title,
+  description,
+  primaryLabel = 'Send forespørsel',
+  primaryHref = `${base}/kontakt`,
+  secondaryLabel,
+  secondaryHref,
+  variant = 'moss',
+} = Astro.props;
+---
+
+<div class:list={['cta-banner', `cta-banner--${variant}`]}>
+  <div class="cta-banner__content">
+    {eyebrow && <span class="cta-banner__eyebrow">{eyebrow}</span>}
+    <h2 class="cta-banner__title">{title}</h2>
+    {description && <p class="cta-banner__description">{description}</p>}
+  </div>
+  <div class="cta-banner__actions">
+    <Button
+      href={primaryHref}
+      variant={variant === 'moss' ? 'clay' : 'primary'}
+      arrow
+    >
+      {primaryLabel}
+    </Button>
+    {secondaryLabel && secondaryHref && (
+      <Button href={secondaryHref} variant="ghost">{secondaryLabel}</Button>
+    )}
+  </div>
+</div>
+
+<style>
+  .cta-banner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    padding: var(--space-5) var(--space-4);
+    border-radius: var(--radius-lg);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .cta-banner {
+      grid-template-columns: 1.6fr 1fr;
+      gap: var(--space-5);
+      padding: var(--space-6);
+    }
+  }
+
+  .cta-banner--moss {
+    background: var(--moss);
+    color: var(--cream);
+  }
+
+  .cta-banner--moss .cta-banner__title,
+  .cta-banner--moss .cta-banner__eyebrow {
+    color: var(--cream);
+  }
+
+  .cta-banner--moss .cta-banner__description {
+    color: rgba(245, 239, 230, 0.85);
+  }
+
+  .cta-banner--moss :global(.btn--ghost) {
+    color: var(--ochre);
+  }
+
+  .cta-banner--moss :global(.btn--ghost:hover) {
+    color: var(--cream);
+    background: rgba(245, 239, 230, 0.08);
+  }
+
+  .cta-banner--clay {
+    background: var(--clay);
+    color: var(--cream);
+  }
+
+  .cta-banner--clay .cta-banner__title,
+  .cta-banner--clay .cta-banner__eyebrow {
+    color: var(--cream);
+  }
+
+  .cta-banner--paper {
+    background: var(--paper);
+    border: 1px solid var(--hairline);
+  }
+
+  .cta-banner__eyebrow {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: var(--space-2);
+    color: var(--ochre-dark);
+  }
+
+  .cta-banner__title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: var(--space-2);
+  }
+
+  .cta-banner__description {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    max-width: 540px;
+  }
+
+  .cta-banner__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    justify-content: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .cta-banner__actions {
+      justify-content: flex-end;
+    }
+  }
+</style>

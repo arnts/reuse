@@ -1,0 +1,74 @@
+---
+interface Props {
+  id?: string;
+  background?: 'cream' | 'paper' | 'moss' | 'cream-warm';
+  padding?: 'default' | 'large' | 'small';
+  class?: string;
+}
+
+const { id, background = 'cream', padding = 'default', class: className = '' } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={['section', `section--${background}`, `section--pad-${padding}`, className]}
+>
+  <div class="section__inner">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    width: 100%;
+  }
+
+  .section--cream {
+    background: var(--cream);
+  }
+
+  .section--cream-warm {
+    background: var(--cream-warm);
+  }
+
+  .section--paper {
+    background: var(--paper);
+  }
+
+  .section--moss {
+    background: var(--moss);
+    color: var(--cream);
+  }
+
+  .section--moss :global(h1),
+  .section--moss :global(h2),
+  .section--moss :global(h3),
+  .section--moss :global(h4) {
+    color: var(--cream);
+  }
+
+  .section--pad-small {
+    padding-block: var(--space-5);
+  }
+
+  .section--pad-default {
+    padding-block: var(--space-7);
+  }
+
+  .section--pad-large {
+    padding-block: var(--space-8);
+  }
+
+  .section__inner {
+    width: 100%;
+    max-width: var(--max-content);
+    margin-inline: auto;
+    padding-inline: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .section__inner {
+      padding-inline: var(--space-5);
+    }
+  }
+</style>

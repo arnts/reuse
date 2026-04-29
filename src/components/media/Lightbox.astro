@@ -1,0 +1,194 @@
+---
+// Lightbox er en singleton som lytter på alle [data-gallery-trigger] knapper
+---
+
+<div class="lightbox" data-lightbox aria-hidden="true" role="dialog" aria-label="Bildevisning">
+  <button class="lightbox__close" data-lightbox-close aria-label="Lukk bildevisning">×</button>
+  <button class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="Forrige bilde">‹</button>
+  <button class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="Neste bilde">›</button>
+  <figure class="lightbox__figure">
+    <img class="lightbox__image" data-lightbox-image alt="" />
+    <figcaption class="lightbox__caption" data-lightbox-caption></figcaption>
+  </figure>
+</div>
+
+<style>
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(28, 24, 21, 0.92);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+  }
+
+  .lightbox[aria-hidden='false'] {
+    display: flex;
+  }
+
+  .lightbox__figure {
+    max-width: min(90vw, 1100px);
+    max-height: 88vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .lightbox__image {
+    max-width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lift);
+    background: var(--cream);
+  }
+
+  .lightbox__caption {
+    color: var(--cream);
+    font-size: 0.95rem;
+    text-align: center;
+    max-width: 600px;
+    font-style: italic;
+  }
+
+  .lightbox__caption:empty {
+    display: none;
+  }
+
+  .lightbox__close,
+  .lightbox__nav {
+    position: absolute;
+    top: var(--space-3);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(245, 239, 230, 0.12);
+    color: var(--cream);
+    font-size: 1.6rem;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+    transition: background var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .lightbox__close {
+    right: var(--space-3);
+    font-size: 2rem;
+  }
+
+  .lightbox__close:hover,
+  .lightbox__nav:hover {
+    background: rgba(245, 239, 230, 0.22);
+    transform: scale(1.05);
+  }
+
+  .lightbox__nav {
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.2rem;
+  }
+
+  .lightbox__nav:hover {
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .lightbox__nav--prev {
+    left: var(--space-3);
+  }
+
+  .lightbox__nav--next {
+    right: var(--space-3);
+  }
+
+  @media (max-width: 480px) {
+    .lightbox__nav {
+      top: auto;
+      bottom: var(--space-3);
+      transform: none;
+    }
+    .lightbox__nav:hover {
+      transform: scale(1.05);
+    }
+    .lightbox__nav--prev {
+      left: var(--space-3);
+    }
+    .lightbox__nav--next {
+      right: var(--space-3);
+    }
+  }
+</style>
+
+<script>
+  const lightbox = document.querySelector<HTMLDivElement>('[data-lightbox]');
+  if (lightbox) {
+    const imageEl = lightbox.querySelector<HTMLImageElement>('[data-lightbox-image]')!;
+    const captionEl = lightbox.querySelector<HTMLElement>('[data-lightbox-caption]')!;
+    const closeBtn = lightbox.querySelector<HTMLButtonElement>('[data-lightbox-close]')!;
+    const prevBtn = lightbox.querySelector<HTMLButtonElement>('[data-lightbox-prev]')!;
+    const nextBtn = lightbox.querySelector<HTMLButtonElement>('[data-lightbox-next]')!;
+
+    let currentTriggers: HTMLElement[] = [];
+    let currentIndex = 0;
+    let lastFocused: HTMLElement | null = null;
+
+    function show(index: number) {
+      const trigger = currentTriggers[index];
+      if (!trigger) return;
+      const img = trigger.querySelector<HTMLImageElement>('img');
+      if (!img) return;
+      currentIndex = index;
+      imageEl.src = img.dataset.full ?? img.src;
+      imageEl.alt = img.alt;
+      captionEl.textContent = img.dataset.caption ?? '';
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hide() {
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    function next() {
+      show((currentIndex + 1) % currentTriggers.length);
+    }
+
+    function prev() {
+      show((currentIndex - 1 + currentTriggers.length) % currentTriggers.length);
+    }
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const trigger = target.closest<HTMLElement>('[data-gallery-trigger]');
+      if (!trigger) return;
+      const gallery = trigger.closest<HTMLElement>('[data-gallery]');
+      if (!gallery) return;
+      currentTriggers = Array.from(
+        gallery.querySelectorAll<HTMLElement>('[data-gallery-trigger]')
+      );
+      const index = currentTriggers.indexOf(trigger);
+      lastFocused = trigger;
+      show(index >= 0 ? index : 0);
+    });
+
+    closeBtn.addEventListener('click', hide);
+    nextBtn.addEventListener('click', next);
+    prevBtn.addEventListener('click', prev);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) hide();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.getAttribute('aria-hidden') !== 'false') return;
+      if (e.key === 'Escape') hide();
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'ArrowLeft') prev();
+    });
+  }
+</script>

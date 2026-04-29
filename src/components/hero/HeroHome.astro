@@ -1,0 +1,205 @@
+---
+import Button from '../primitives/Button.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<section class="hero-home">
+  <div class="hero-home__inner">
+    <div class="hero-home__content">
+      <p class="hero-home__eyebrow">Skapende gjenbruk · Oslo</p>
+      <h1 class="hero-home__headline">
+        Et atelier hvor <em>gjenbruksmaterialer</em> blir til skapende prosesser.
+      </h1>
+      <p class="hero-home__sub">
+        Workshops, kurs og bursdager i Oslo, ledet av to Atelierista utdannet ved
+        Reggio Emilia-instituttet i Stockholm.
+      </p>
+      <div class="hero-home__actions">
+        <Button href={`${base}/kontakt`} variant="clay" arrow>Send forespørsel</Button>
+        <Button href={`${base}/tilbud`} variant="secondary">Se tilbud</Button>
+      </div>
+      <ul class="hero-home__trust">
+        <li>For barn, pedagoger, bedrifter</li>
+        <li>Grønland · Tøyen</li>
+        <li>Skreddersys etter behov</li>
+      </ul>
+    </div>
+    <div class="hero-home__media" aria-hidden="true">
+      <div class="hero-home__shape hero-home__shape--clay"></div>
+      <div class="hero-home__shape hero-home__shape--ochre"></div>
+      <div class="hero-home__image">
+        <img src={`${base}/images/hero/hero-main.svg`} alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-home {
+    position: relative;
+    background: var(--cream);
+    overflow: hidden;
+  }
+
+  .hero-home::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+        circle at 80% 20%,
+        rgba(201, 165, 92, 0.18) 0%,
+        transparent 45%
+      ),
+      radial-gradient(circle at 10% 90%, rgba(184, 92, 63, 0.1) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  .hero-home__inner {
+    position: relative;
+    max-width: var(--max-content);
+    margin-inline: auto;
+    padding: var(--space-6) var(--space-3);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-home__inner {
+      padding: var(--space-7) var(--space-5);
+    }
+  }
+
+  @media (min-width: 960px) {
+    .hero-home__inner {
+      grid-template-columns: 1.15fr 1fr;
+      gap: var(--space-6);
+      padding-block: var(--space-8);
+    }
+  }
+
+  .hero-home__eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ochre-dark);
+    margin-bottom: var(--space-3);
+  }
+
+  .hero-home__eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1.5px;
+    margin-right: 12px;
+    vertical-align: middle;
+    background: var(--ochre-dark);
+  }
+
+  .hero-home__headline {
+    font-size: clamp(2.5rem, 6vw, 4.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-3);
+    max-width: 14ch;
+  }
+
+  .hero-home__headline em {
+    font-style: italic;
+    color: var(--clay);
+    font-weight: 400;
+  }
+
+  .hero-home__sub {
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-bottom: var(--space-4);
+    max-width: 540px;
+  }
+
+  .hero-home__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-home__trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--hairline);
+    max-width: 540px;
+  }
+
+  .hero-home__trust li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-home__trust li::before {
+    content: '✓';
+    color: var(--clay);
+    font-weight: 600;
+  }
+
+  .hero-home__media {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-height: 620px;
+  }
+
+  @media (max-width: 600px) {
+    .hero-home__media {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  .hero-home__image {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lift);
+    z-index: 2;
+  }
+
+  .hero-home__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-home__shape {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .hero-home__shape--clay {
+    width: 60%;
+    aspect-ratio: 1;
+    top: -8%;
+    right: -10%;
+    background: var(--clay);
+    opacity: 0.85;
+  }
+
+  .hero-home__shape--ochre {
+    width: 40%;
+    aspect-ratio: 1;
+    bottom: -10%;
+    left: -8%;
+    background: var(--ochre);
+    opacity: 0.7;
+  }
+</style>
