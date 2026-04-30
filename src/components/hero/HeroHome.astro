@@ -31,9 +31,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="hero-home__image">
         <img
           src={`${base}/images/hero/hero-main.jpg`}
+          srcset={`${base}/images/hero/hero-main-sm.jpg 800w, ${base}/images/hero/hero-main.jpg 1400w`}
+          sizes="(max-width: 600px) 92vw, (max-width: 960px) 70vw, 540px"
           alt="Caroline og Ann-Helen, de to Atelierista bak REuse Atelier"
           width="1400"
           height="1867"
+          fetchpriority="high"
         />
       </div>
     </div>
@@ -161,12 +164,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     position: relative;
     aspect-ratio: 4 / 5;
     max-height: 620px;
-  }
-
-  @media (max-width: 600px) {
-    .hero-home__media {
-      aspect-ratio: 4 / 3;
-    }
   }
 
   .hero-home__image {

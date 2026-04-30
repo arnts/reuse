@@ -21,7 +21,13 @@
     display: none;
     align-items: center;
     justify-content: center;
-    padding: var(--space-3);
+    padding: var(--space-2);
+  }
+
+  @media (min-width: 600px) {
+    .lightbox {
+      padding: var(--space-3);
+    }
   }
 
   .lightbox[aria-hidden='false'] {
@@ -29,8 +35,8 @@
   }
 
   .lightbox__figure {
-    max-width: min(90vw, 1100px);
-    max-height: 88vh;
+    max-width: min(96vw, 1100px);
+    max-height: 88dvh;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -40,7 +46,7 @@
 
   .lightbox__image {
     max-width: 100%;
-    max-height: 78vh;
+    max-height: 70dvh;
     object-fit: contain;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lift);

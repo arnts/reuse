@@ -67,9 +67,15 @@ const contactHref = `${base}/kontakt?tjeneste=${service.id}${
     border: 1px solid var(--hairline);
   }
 
-  .service-card:hover {
-    box-shadow: var(--shadow-lift);
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    .service-card:hover {
+      box-shadow: var(--shadow-lift);
+      transform: translateY(-2px);
+    }
+
+    .service-card:hover .service-card__image img {
+      transform: scale(1.03);
+    }
   }
 
   .service-card__image {
@@ -83,10 +89,6 @@ const contactHref = `${base}/kontakt?tjeneste=${service.id}${
     height: 100%;
     object-fit: cover;
     transition: transform var(--transition-medium);
-  }
-
-  .service-card:hover .service-card__image img {
-    transform: scale(1.03);
   }
 
   .service-card__body {

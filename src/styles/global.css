@@ -91,6 +91,7 @@ body {
   background: var(--cream);
   font-feature-settings: 'kern' 1, 'liga' 1;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 img,
@@ -277,8 +278,10 @@ em {
   white-space: nowrap;
 }
 
-.btn:hover {
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .btn:hover {
+    transform: translateY(-1px);
+  }
 }
 
 .btn:active {

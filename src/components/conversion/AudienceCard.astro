@@ -41,17 +41,23 @@ const href = `${base}/tilbud#${audience.id}`;
     height: 100%;
   }
 
-  .audience-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lift);
-  }
+  @media (hover: hover) {
+    .audience-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lift);
+    }
 
-  .audience-card:hover .arrow {
-    transform: translateX(4px);
-  }
+    .audience-card:hover .arrow {
+      transform: translateX(4px);
+    }
 
-  .audience-card:hover .audience-card__cta {
-    color: var(--clay-dark);
+    .audience-card:hover .audience-card__cta {
+      color: var(--clay-dark);
+    }
+
+    .audience-card:hover .audience-card__image img {
+      transform: scale(1.04);
+    }
   }
 
   .audience-card__image {
@@ -65,10 +71,6 @@ const href = `${base}/tilbud#${audience.id}`;
     height: 100%;
     object-fit: cover;
     transition: transform var(--transition-medium);
-  }
-
-  .audience-card:hover .audience-card__image img {
-    transform: scale(1.04);
   }
 
   .audience-card__body {
