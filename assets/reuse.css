@@ -609,22 +609,62 @@ main {
     display: flex;
   }
 
+  /* Nav is hidden by default on mobile and only revealed inside the
+     full-screen overlay (.site-header.nav-open) below. Keeping it in the
+     normal flow — not position: fixed — avoids inheriting a containing block
+     from any ancestor that establishes a stacking context. */
   .primary-nav {
+    display: none;
+  }
+
+  /* When open, the header itself becomes an opaque, full-viewport overlay
+     that sits above the hero, sticky elements and all page content. Because
+     the header's own containing block is the viewport, this is reliably
+     fixed to the full screen (unlike a fixed child of the header, whose
+     containing block is the header box due to its backdrop-filter). */
+  .site-header.nav-open {
     position: fixed;
-    inset: var(--header-height) 0 0 0;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
     background: var(--cream);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: 0;
+    box-shadow: none;
+    z-index: 2000;
+    overflow-y: auto;
+    isolation: isolate;
+  }
+
+  .site-header.nav-open .header-inner {
+    min-height: var(--header-height);
+    height: auto;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: flex-start;
+  }
+
+  /* Menu header row (logo + close button) stays at the top; the nav list
+     wraps to a full-width block below it. Neutralise any positioning,
+     transform, margin or z-index so it never inherits hero geometry. */
+  .site-header.nav-open .primary-nav {
+    display: flex;
+    position: static;
+    inset: auto;
+    transform: none;
+    margin: 0;
+    z-index: auto;
+    background: transparent;
+    flex-basis: 100%;
+    width: 100%;
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    padding: var(--space-5) var(--space-3);
     gap: var(--space-3);
-    transform: translateX(100%);
-    transition: transform var(--transition-medium);
-    overflow-y: auto;
-  }
-
-  .primary-nav.is-open {
-    transform: translateX(0);
+    padding: var(--space-5) 0 var(--space-6);
+    overflow-y: visible;
   }
 
   .nav-list {

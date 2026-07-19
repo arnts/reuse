@@ -69,21 +69,95 @@
     var toggle = header.querySelector('.menu-toggle');
     var nav = header.querySelector('.primary-nav');
     if (toggle && nav) {
+      var mobileMq = window.matchMedia('(max-width: 880px)');
+      var savedScrollY = 0;
+
+      var syncClosedAria = function () {
+        if (mobileMq.matches && !header.classList.contains('nav-open')) {
+          nav.setAttribute('aria-hidden', 'true');
+        } else {
+          nav.removeAttribute('aria-hidden');
+        }
+      };
+
+      var lockScroll = function () {
+        savedScrollY = window.scrollY || window.pageYOffset || 0;
+        document.body.style.position = 'fixed';
+        document.body.style.top = -savedScrollY + 'px';
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.width = '100%';
+        document.body.style.overflow = 'hidden';
+      };
+
+      var unlockScroll = function () {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, savedScrollY);
+      };
+
+      var openMenu = function () {
+        lockScroll();
+        header.classList.add('nav-open');
+        nav.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Lukk meny');
+        nav.removeAttribute('aria-hidden');
+        var firstLink = nav.querySelector('a, button');
+        if (firstLink) firstLink.focus({ preventScroll: true });
+      };
+
+      var closeMenu = function (returnFocus) {
+        var wasOpen = header.classList.contains('nav-open');
+        header.classList.remove('nav-open');
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Åpne meny');
+        if (wasOpen) unlockScroll();
+        syncClosedAria();
+        if (returnFocus) toggle.focus();
+      };
+
       toggle.addEventListener('click', function () {
-        var isOpen = nav.classList.toggle('is-open');
-        toggle.setAttribute('aria-expanded', String(isOpen));
-        toggle.setAttribute('aria-label', isOpen ? 'Lukk meny' : 'Åpne meny');
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+        if (header.classList.contains('nav-open')) {
+          closeMenu(false);
+        } else {
+          openMenu();
+        }
       });
 
       nav.querySelectorAll('a').forEach(function (link) {
         link.addEventListener('click', function () {
-          nav.classList.remove('is-open');
-          toggle.setAttribute('aria-expanded', 'false');
-          toggle.setAttribute('aria-label', 'Åpne meny');
-          document.body.style.overflow = '';
+          closeMenu(false);
         });
       });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && header.classList.contains('nav-open')) {
+          closeMenu(true);
+        }
+      });
+
+      var onBreakpointChange = function () {
+        if (mobileMq.matches) {
+          syncClosedAria();
+        } else if (header.classList.contains('nav-open')) {
+          closeMenu(false);
+        } else {
+          nav.removeAttribute('aria-hidden');
+        }
+      };
+      if (mobileMq.addEventListener) {
+        mobileMq.addEventListener('change', onBreakpointChange);
+      } else if (mobileMq.addListener) {
+        mobileMq.addListener(onBreakpointChange);
+      }
+
+      syncClosedAria();
     }
   }
 
@@ -221,6 +295,15 @@
   });
   document.addEventListener('shopify:section:unload', function (e) {
     var nav = e.target.querySelector ? e.target.querySelector('.primary-nav') : null;
-    if (nav) document.body.style.overflow = '';
+    if (nav) {
+      var y = Math.abs(parseInt(document.body.style.top || '0', 10)) || window.scrollY;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, y);
+    }
   });
 })();
