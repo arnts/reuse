@@ -1,47 +1,62 @@
-{% comment %}
-  Featured courses placeholder (Phase 2 scaffolding).
-  Optional homepage slot. Empty/opt-in by default: renders nothing until a
-  collection is selected in the Theme Editor. No commerce behavior.
-{% endcomment %}
+{%- comment -%}
+  Featured courses (homepage). Renders the selected collection's products in the
+  collection's configured sort order. No date filtering, no timezone logic, no
+  client-side filtering — the "Upcoming Courses" collection is curated and
+  ordered manually in Shopify Admin.
+{%- endcomment -%}
 {%- assign featured = section.settings.collection -%}
-{%- if featured != blank and featured.products_count > 0 -%}
-  <section
-    {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %}
-    class="section section--{{ section.settings.background }} section--pad-{{ section.settings.padding }}"
-  >
-    <div class="section__inner">
-      <div class="section-heading fade-in">
-        {%- if section.settings.eyebrow != blank -%}
-          <span class="eyebrow eyebrow--ochre">{{ section.settings.eyebrow }}</span>
-        {%- endif -%}
-        {%- if section.settings.heading != blank -%}
-          <h2>{{ section.settings.heading }}</h2>
-        {%- endif -%}
-        {%- if section.settings.intro != blank -%}
-          <p class="section-lead">{{ section.settings.intro }}</p>
-        {%- endif -%}
-      </div>
+<section
+  {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %}
+  class="section section--{{ section.settings.background }} section--pad-{{ section.settings.padding }}"
+>
+  <div class="section__inner">
+    <div class="section-head fade-in">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="eyebrow eyebrow--ochre">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2>{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <p>{{ section.settings.intro }}</p>
+      {%- endif -%}
+    </div>
 
-      <div class="featured-courses fade-in">
+    {%- if featured != blank and featured.products_count > 0 -%}
+      <div class="featured-courses__grid fade-in">
         {%- for product in featured.products limit: section.settings.limit -%}
           {%- render 'course-card', product: product -%}
         {%- endfor -%}
       </div>
-    </div>
-  </section>
-{%- endif -%}
+
+      {%- if section.settings.show_view_all -%}
+        <div class="section-foot fade-in">
+          <a href="{{ featured.url }}" class="btn btn--secondary">
+            {{ section.settings.view_all_label }}
+            <span class="arrow" aria-hidden="true">&#8594;</span>
+          </a>
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <p class="featured-courses__empty fade-in">{{ section.settings.empty_text }}</p>
+    {%- endif -%}
+  </div>
+</section>
 
 {% schema %}
 {
   "name": "Fremhevede kurs",
   "settings": [
-    { "type": "paragraph", "content": "Plassholder for kommende kursvisning (fase 2). Velg en samling for å vise kort. Ingen kjøpsfunksjonalitet er aktivert ennå." },
+    { "type": "paragraph", "content": "Viser produktene i valgt samling i samlingens egen sorteringsrekkefølge. Kurér og sorter «Kommende kurs»-samlingen manuelt i Shopify Admin." },
     { "type": "text", "id": "anchor", "label": "Anker-ID" },
-    { "type": "collection", "id": "collection", "label": "Samling" },
-    { "type": "range", "id": "limit", "label": "Maks antall", "min": 2, "max": 12, "step": 1, "default": 3 },
+    { "type": "collection", "id": "collection", "label": "Samling (Kommende kurs)" },
+    { "type": "range", "id": "limit", "label": "Maks antall kort", "min": 2, "max": 12, "step": 1, "default": 3 },
     { "type": "text", "id": "eyebrow", "label": "Overtekst", "default": "Kommende kurs" },
     { "type": "text", "id": "heading", "label": "Overskrift", "default": "Bli med på kurs" },
     { "type": "textarea", "id": "intro", "label": "Ingress" },
+    { "type": "checkbox", "id": "show_view_all", "label": "Vis «Se alle kurs»-lenke", "default": true },
+    { "type": "text", "id": "view_all_label", "label": "Lenketekst", "default": "Se alle kurs" },
+    { "type": "text", "id": "empty_text", "label": "Tekst når tom", "default": "Ingen kommende kurs akkurat nå. Følg med — nye datoer legges ut fortløpende." },
     { "type": "header", "content": "Utseende" },
     {
       "type": "select",

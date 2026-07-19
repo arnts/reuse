@@ -69,6 +69,13 @@
           <span class="arrow" aria-hidden="true">→</span>
         </a>
       {%- endif -%}
+
+      {%- if section.settings.show_cart -%}
+        <a href="{{ routes.cart_url }}" class="header-cart" aria-label="{{ 'header.cart_count' | t: count: cart.item_count }}">
+          <span class="header-cart__label">{{ 'header.cart' | t }}</span>
+          <span class="header-cart__count" aria-hidden="true">{{ cart.item_count }}</span>
+        </a>
+      {%- endif -%}
     </nav>
   </div>
 </header>
@@ -103,6 +110,17 @@
       "type": "url",
       "id": "cta_link",
       "label": "Knappelenke"
+    },
+    {
+      "type": "header",
+      "content": "Handlekurv"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Vis handlekurv-lenke",
+      "default": false,
+      "info": "Slå på når kurs legges ut for salg (fase 2)."
     }
   ],
   "blocks": [

@@ -208,9 +208,79 @@ med responsive bredder/`srcset`, eksplisitte `width`/`height` og bevart sideforh
 Hero-bildet lastes ivrig (`loading: eager`, `fetchpriority: high`); bilder under
 brettet lastes lat (`loading: lazy`).
 
-### Fase 2 (ikke implementert)
+### Fase 2 — Kjøpbare kurs (implementert)
 
-Handelsfilene (`featured-courses`, `main-course-product`, `main-course-collection`,
-`course-card`, `product.course.json`, `collection.courses.json`) er **kun gyldig
-stillas** uten handelsatferd. Fase 2 legger til kurs som produkter med
-handlekurv/kasse, varianter, beholdning/plasser og betaling.
+Fase 2 gjør ett kurs kjøpbart ende-til-ende med Shopifys native produktskjema,
+handlekurv og kasse. Ingen tilpasset kasse, ingen handlekurv-skuff, ingen
+tredjepartsapper, og ingen JavaScript i kjøpsflyten.
+
+#### Produktmodell
+
+- **Ett Shopify-produkt per kursdato.** Ikke bruk varianter for datoer.
+- **Lager = antall plasser.** Slå **av** «Fortsett å selge når utsolgt» på varianten,
+  slik at lager 0 deaktiverer kjøp og viser **«Utsolgt»**.
+- Standardfelt brukes til: **tittel** (kursnavn), **beskrivelse** (kort tekst),
+  **media** (kursbilde), **pris** (plass-pris), **lager** (plasser).
+
+#### Metafelt-definisjoner (opprettes i Shopify Admin)
+
+Opprett disse under **Innstillinger → Egendefinerte data → Produkter**. Namespace og
+nøkkel er `course.<key>`. Kun `course.date` forventes på alle kurs; resten er
+valgfrie og skjules automatisk når de er tomme (ingen tomme overskrifter/feil).
+
+| Nøkkel                          | Type                     | Bruk                         |
+|---------------------------------|--------------------------|------------------------------|
+| `course.date`                   | Dato                     | Kursdato (visning + manuell sortering) |
+| `course.start_time`             | Én linje tekst           | Starttid, f.eks. «17:00»     |
+| `course.end_time`               | Én linje tekst           | Sluttid, f.eks. «20:00»      |
+| `course.location`               | Én linje tekst           | Sted                         |
+| `course.audience`               | Én linje tekst           | Målgruppe                    |
+| `course.practical_info`         | Flerlinjes tekst         | Praktisk informasjon         |
+| `course.instructors`            | Rik tekst                | Kursholdere (én eller flere) |
+| `course.cancellation_policy`    | Flerlinjes tekst         | Avbestillingsvilkår          |
+
+`course.date` er **kun for visning** — den styrer **ikke** samlingsmedlemskap,
+synlighet eller filtrering. Temaet gjør ingen dato-/tidssone-/klientfiltrering.
+
+#### «Kommende kurs»-samling (kurateres manuelt)
+
+1. Opprett en samling (f.eks. med handle `courses`) og bruk malen
+   **`collection.courses`**.
+2. **Legg produktet til** i samlingen når det er klart for salg.
+3. **Sorter produktene manuelt** etter kursdato (manuell sortering i samlingen).
+4. **Fjern produktet** fra samlingen etter at kurset er gjennomført.
+
+På forsiden: legg til seksjonen **Fremhevede kurs**, velg samlingen, og sett
+overskrift/ingress/maks antall. Seksjonen viser samlingens egen rekkefølge og lenker
+til hele samlingen.
+
+#### Kursprodukt
+
+1. Opprett et produkt, sett tittel/beskrivelse/bilde/pris og **lager = antall plasser**
+   (lagersporing på, «fortsett å selge» av).
+2. Velg malen **`product.course`** for produktet.
+3. Fyll ut `course.*`-metafeltene (alle valgfrie unntatt `course.date`).
+4. FAQ-blokkene på kurssiden er **felles for alle kursprodukter** (generelle vilkår og
+   ofte stilte spørsmål) — de redigeres på `product.course`-malen i Theme Editor, ikke
+   per produkt. Produktspesifikk info hører hjemme i beskrivelsen eller metafeltene.
+
+#### Handlekurv og kasse
+
+Standard handlekurvside (`templates/cart.json`) og Shopifys native kasse. Slå på
+**«Vis handlekurv-lenke»** i topptekst-seksjonen når kurs legges ut for salg.
+Handlekurv-antallet er server-rendret (`cart.item_count`) og oppdateres ved vanlig
+sidenavigasjon — ingen dynamisk JS-teller.
+
+#### Tilgjengelighet / ytelse
+
+Semantiske overskrifter (én `h1` på kurssiden), `<label>` på antallsfeltet,
+`role="status"` på tilgjengelighetstekst, tastaturvennlige kontroller, responsive
+Shopify-bilder med eksplisitte dimensjoner, lat lasting under brettet, og **ingen
+unødvendig JavaScript** — hele kjøpsflyten fungerer med JavaScript deaktivert.
+
+#### Ute av scope (fase 2)
+
+Ingen tilpasset kasse, handlekurv-skuff, betalingsintegrasjoner, kundekontoer,
+medlemskap, abonnement, ventelister, bookingkalendere, sertifikater, digitale
+nedlastinger, tredjepartsapper, dato-varianter eller egendefinert reservasjons-/
+filtreringslogikk.

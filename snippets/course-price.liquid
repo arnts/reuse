@@ -1,0 +1,12 @@
+{%- comment -%}
+  Renders a product's price using the store's money format.
+  Single-variant course products, so we use the product price.
+
+  Accepts:
+    product - (object) required
+    class   - (string) optional extra css class
+{%- endcomment -%}
+{%- liquid
+  assign price_class = class | default: ''
+-%}
+<span class="course-price {{ price_class }}">{{ product.price | money }}</span>

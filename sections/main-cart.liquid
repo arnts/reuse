@@ -1,0 +1,89 @@
+{%- comment -%}
+  Standard native cart page. Uses Shopify's cart routes and checkout. No cart
+  drawer, no custom checkout, no JavaScript required — quantity updates and
+  checkout are native form submissions.
+{%- endcomment -%}
+<section class="section section--cream section--pad-default">
+  <div class="section__inner section__inner--narrow">
+    <div class="section-head">
+      <h1>{{ 'cart.title' | t }}</h1>
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="cart">
+        <table class="cart__table">
+          <thead>
+            <tr>
+              <th scope="col">{{ 'cart.product' | t }}</th>
+              <th scope="col">{{ 'cart.price' | t }}</th>
+              <th scope="col">{{ 'cart.quantity' | t }}</th>
+              <th scope="col">{{ 'cart.total' | t }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for item in cart.items -%}
+              <tr class="cart__row">
+                <td class="cart__product">
+                  {%- if item.image -%}
+                    {{
+                      item.image
+                      | image_url: width: 160
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '80, 120, 160',
+                        sizes: '80px',
+                        alt: item.image.alt | default: item.product.title,
+                        class: 'cart__image'
+                    }}
+                  {%- endif -%}
+                  <a href="{{ item.url }}" class="cart__title">{{ item.product.title }}</a>
+                </td>
+                <td class="cart__price" data-label="{{ 'cart.price' | t }}">{{ item.original_price | money }}</td>
+                <td class="cart__qty" data-label="{{ 'cart.quantity' | t }}">
+                  <label class="visually-hidden" for="qty-{{ item.index | plus: 1 }}">
+                    {{ 'cart.quantity' | t }}
+                  </label>
+                  <input
+                    type="number"
+                    id="qty-{{ item.index | plus: 1 }}"
+                    name="updates[]"
+                    value="{{ item.quantity }}"
+                    min="0"
+                    inputmode="numeric"
+                    class="cart__qty-input"
+                  >
+                  <a href="{{ item.url_to_remove }}" class="cart__remove">{{ 'cart.remove' | t }}</a>
+                </td>
+                <td class="cart__total" data-label="{{ 'cart.total' | t }}">{{ item.original_line_price | money }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+
+        <div class="cart__footer">
+          <div class="cart__subtotal">
+            <span>{{ 'cart.subtotal' | t }}</span>
+            <strong>{{ cart.total_price | money }}</strong>
+          </div>
+          <p class="cart__note">{{ 'cart.taxes_note' | t }}</p>
+          <div class="cart__actions">
+            <button type="submit" name="update" class="btn btn--secondary">{{ 'cart.update' | t }}</button>
+            <button type="submit" name="checkout" class="btn btn--primary">{{ 'cart.checkout' | t }}</button>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <p class="cart__empty">{{ 'cart.empty' | t }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn--secondary">{{ 'cart.continue' | t }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Handlekurv",
+  "settings": [
+    { "type": "paragraph", "content": "Standard handlekurvside med Shopifys native handlekurv og kasse. Ingen tilpasset kasse." }
+  ]
+}
+{% endschema %}
