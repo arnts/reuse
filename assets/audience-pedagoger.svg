@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" preserveAspectRatio="xMidYMid slice" role="img">
+  <defs>
+    <filter id="grain-22222407381453960">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="60"/>
+      <feColorMatrix values="0 0 0 0 0.17 0 0 0 0 0.16 0 0 0 0 0.15 0 0 0 0.06 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter></defs>
+  <rect width="600" height="450" fill="#F5EFE6"/>
+  <circle cx="294.787778891623" cy="222.71570884622633" r="216.32096811023075" fill="#B85C3F" opacity="0.85"/>
+  <circle cx="118.4735148679465" cy="26.265478029381484" r="142.5399883033242" fill="#C9A55C" opacity="0.7"/>
+  <circle cx="169.13196626119316" cy="164.4354744348675" r="45" fill="#2C4A3E" opacity="0.8"/>
+  <rect width="600" height="450" fill="black" filter="url(#grain-22222407381453960)" opacity="0.4"/>
+</svg>

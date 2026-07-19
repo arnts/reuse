@@ -1,0 +1,22 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "header": {
+      "type": "reuse-header",
+      "settings": {
+        "logo_alt": "REuse Atelier — Kreative hender & Kreative hoder",
+        "cta_label": "Send forespørsel",
+        "cta_link": "#kontakt"
+      },
+      "blocks": {
+        "nav-1": { "type": "nav_link", "settings": { "label": "Hjem", "link": "/" } },
+        "nav-2": { "type": "nav_link", "settings": { "label": "Tilbud", "link": "#tilbud" } },
+        "nav-3": { "type": "nav_link", "settings": { "label": "Om oss", "link": "#team" } },
+        "nav-4": { "type": "nav_link", "settings": { "label": "Kontakt", "link": "#kontakt" } }
+      },
+      "block_order": ["nav-1", "nav-2", "nav-3", "nav-4"]
+    }
+  },
+  "order": ["header"]
+}

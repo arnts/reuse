@@ -1,0 +1,22 @@
+{
+  "general": {
+    "skip_to_content": "Hopp til hovedinnhold",
+    "back_to_home": "REuse Atelier — til forsiden"
+  },
+  "header": {
+    "menu_open": "Åpne meny",
+    "menu_close": "Lukk meny",
+    "primary_navigation": "Hovednavigasjon"
+  },
+  "gallery": {
+    "view_image": "Åpne bilde: {{ alt }}",
+    "dialog_label": "Bildevisning",
+    "close": "Lukk bildevisning",
+    "previous": "Forrige bilde",
+    "next": "Neste bilde"
+  },
+  "contact": {
+    "success": "Takk! Vi har mottatt henvendelsen din og svarer innen 2 virkedager.",
+    "error_intro": "Noe gikk galt. Vennligst sjekk feltene under:"
+  }
+}

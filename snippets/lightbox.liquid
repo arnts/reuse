@@ -1,0 +1,15 @@
+{%- comment -%}
+  Shared lightbox dialog. Rendered once from theme.liquid; all galleries
+  delegate to it via [data-gallery-trigger] (see assets/reuse.js).
+{%- endcomment -%}
+<div class="lightbox" data-lightbox aria-hidden="true" role="dialog" aria-label="{{ 'gallery.dialog_label' | t }}">
+  <button class="lightbox__close" data-lightbox-close aria-label="{{ 'gallery.close' | t }}">×</button>
+  <button class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="{{ 'gallery.previous' | t }}">‹</button>
+  <button class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="{{ 'gallery.next' | t }}">›</button>
+  <figure class="lightbox__figure">
+    {% # theme-check-disable ImgWidthAndHeight %}
+    <img class="lightbox__image" data-lightbox-image alt="">
+    {% # theme-check-enable ImgWidthAndHeight %}
+    <figcaption class="lightbox__caption" data-lightbox-caption></figcaption>
+  </figure>
+</div>

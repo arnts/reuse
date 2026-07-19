@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.share_image != blank -%}
+      {%- assign og_image = settings.share_image | image_url: width: 1200 -%}
+    {%- else -%}
+      {%- assign og_image = 'og-image.svg' | asset_url -%}
+    {%- endif -%}
+
+    <meta property="og:site_name" content="{{ shop.name }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="{{ request.locale.iso_code }}">
+    <meta property="og:title" content="{{ page_title }}">
+    {%- if page_description -%}
+      <meta property="og:description" content="{{ page_description | escape }}">
+    {%- endif -%}
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:image" content="{{ og_image }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title }}">
+    {%- if page_description -%}
+      <meta name="twitter:description" content="{{ page_description | escape }}">
+    {%- endif -%}
+    <meta name="twitter:image" content="{{ og_image }}">
+    <meta name="theme-color" content="#F5EFE6">
+
+    <title>{{ page_title }}</title>
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {%- comment -%}
+      Fonts: Fraunces (400/500 + italic) and Inter (400/500/600) from Google Fonts.
+      Only the weights actually used are requested. This is a third-party request
+      that exposes the visitor IP to Google; self-hosting is a future option
+      (see README "Fonts" section).
+    {%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600&display=swap"
+    >
+
+    {{ 'reuse.css' | asset_url | stylesheet_tag }}
+
+    {%- if settings.enable_org_jsonld -%}
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": {{ shop.name | json }},
+          "url": {{ shop.url | json }},
+          "areaServed": { "@type": "City", "name": "Oslo" }
+        }
+      </script>
+    {%- endif -%}
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ request.page_type | handle }}">
+    <a href="#main" class="skip-link">{{ 'general.skip_to_content' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {% render 'lightbox' %}
+
+    <script src="{{ 'reuse.js' | asset_url }}" defer></script>
+  </body>
+</html>

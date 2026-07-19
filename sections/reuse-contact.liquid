@@ -1,0 +1,217 @@
+<section
+  {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %}
+  class="section section--{{ section.settings.background }} section--pad-{{ section.settings.padding }}"
+>
+  <div class="section__inner">
+    <div class="closing-grid">
+      <div class="closing-text fade-in">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="eyebrow eyebrow--ochre">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2>{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.body != blank -%}
+          <p>{{ section.settings.body }}</p>
+        {%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          <ul class="closing-list">
+            {%- for block in section.blocks -%}
+              <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <div class="closing-form fade-in">
+        <div class="contact-form-wrap contact-form-wrap--compact">
+          {%- if section.settings.form_heading != blank -%}
+            <div class="contact-form-heading">
+              <p class="contact-form-eyebrow">{{ section.settings.form_eyebrow }}</p>
+              <h2>{{ section.settings.form_heading }}</h2>
+              <p class="contact-form-meta">
+                {{ section.settings.form_meta }}
+              </p>
+            </div>
+          {%- endif -%}
+
+          {%- form 'contact', id: 'reuse-contact-form', class: 'contact-form', data-contact-form: '' -%}
+            {%- if form.posted_successfully? -%}
+              <div class="form-status form-status--success" role="status">
+                <strong>Takk!</strong> {{ 'contact.success' | t }}
+              </div>
+            {%- elsif form.errors -%}
+              <div class="form-status form-status--error" role="alert">
+                <strong>{{ 'contact.error_intro' | t }}</strong>
+                <ul>
+                  {%- for field in form.errors -%}
+                    <li>{{ form.errors.messages[field] }}</li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+
+            <div class="form-grid">
+              <label class="field">
+                <span class="field__label">{{ section.settings.label_name }}</span>
+                <input type="text" name="contact[Navn]" required autocomplete="name" value="{{ form.name }}">
+              </label>
+
+              <label class="field">
+                <span class="field__label">{{ section.settings.label_email }}</span>
+                <input type="email" name="contact[email]" required autocomplete="email" value="{{ form.email }}">
+              </label>
+
+              <label class="field">
+                <span class="field__label">{{ section.settings.label_phone }}</span>
+                <input type="tel" name="contact[Telefon]" autocomplete="tel">
+              </label>
+
+              <label class="field">
+                <span class="field__label">{{ section.settings.label_participants }}</span>
+                <input type="number" name="contact[Antall deltakere]" min="1">
+              </label>
+
+              <fieldset class="field field--span">
+                <legend class="field__label">{{ section.settings.label_inquiry }}</legend>
+                <div class="radio-group" role="radiogroup">
+                  {%- assign inquiry_options = section.settings.inquiry_options | newline_to_br | split: '<br />' -%}
+                  {%- for opt in inquiry_options -%}
+                    {%- assign opt_val = opt | strip -%}
+                    {%- if opt_val != blank -%}
+                      <label class="radio-label">
+                        <input
+                          type="radio"
+                          name="contact[Type henvendelse]"
+                          value="{{ opt_val | escape }}"
+                          {% if forloop.first %}required{% endif %}
+                          data-inquiry-type
+                        >
+                        <span>{{ opt_val }}</span>
+                      </label>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+
+              <label class="field field--span">
+                <span class="field__label">{{ section.settings.label_service }}</span>
+                <select name="contact[Hva gjelder det]" required data-service-select>
+                  <option value="">Velg fra listen…</option>
+                  {%- assign service_options = section.settings.service_options | newline_to_br | split: '<br />' -%}
+                  {%- for opt in service_options -%}
+                    {%- assign opt_val = opt | strip -%}
+                    {%- if opt_val != blank -%}
+                      <option value="{{ opt_val | escape }}">{{ opt_val }}</option>
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <option value="Annet">Annet</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span class="field__label">{{ section.settings.label_date }}</span>
+                <input type="date" name="contact[Ønsket dato]">
+              </label>
+
+              <label class="field field--span">
+                <span class="field__label">{{ section.settings.label_message }}</span>
+                <textarea
+                  name="contact[body]"
+                  rows="5"
+                  required
+                  placeholder="{{ section.settings.message_placeholder | escape }}"
+                >{{ form.body }}</textarea>
+              </label>
+            </div>
+
+            <div class="form-footer">
+              <button type="submit" class="btn btn--primary">
+                {{ section.settings.submit_label }}
+                <span class="arrow" aria-hidden="true">→</span>
+              </button>
+              <p class="form-note">{{ section.settings.form_note }}</p>
+            </div>
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kontakt",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anker-ID", "default": "kontakt" },
+    { "type": "header", "content": "Venstre kolonne" },
+    { "type": "text", "id": "eyebrow", "label": "Overtekst", "default": "Ta kontakt" },
+    { "type": "text", "id": "heading", "label": "Overskrift", "default": "La oss skape noe sammen" },
+    { "type": "textarea", "id": "body", "label": "Tekst", "default": "Vi tar imot forespørsler om kurs, workshops, bursdager, teambuilding, foredrag og studiebesøk. Fortell hva du har i tankene — så svarer vi innen 2 virkedager." },
+    { "type": "header", "content": "Skjema-overskrift" },
+    { "type": "text", "id": "form_eyebrow", "label": "Overtekst", "default": "Send forespørsel" },
+    { "type": "text", "id": "form_heading", "label": "Overskrift", "default": "Fortell oss om planen din" },
+    { "type": "textarea", "id": "form_meta", "label": "Undertekst", "default": "Vi svarer som regel innen 2 virkedager. Felter merket med * er påkrevd." },
+    { "type": "header", "content": "Feltetiketter" },
+    { "type": "text", "id": "label_name", "label": "Navn", "default": "Navn *" },
+    { "type": "text", "id": "label_email", "label": "E-post", "default": "E-post *" },
+    { "type": "text", "id": "label_phone", "label": "Telefon", "default": "Telefon" },
+    { "type": "text", "id": "label_participants", "label": "Antall deltakere", "default": "Antall deltakere" },
+    { "type": "text", "id": "label_inquiry", "label": "Type henvendelse", "default": "Type henvendelse *" },
+    { "type": "text", "id": "label_service", "label": "Hva gjelder det", "default": "Hva gjelder det? *" },
+    { "type": "text", "id": "label_date", "label": "Ønsket dato", "default": "Ønsket dato (hvis aktuelt)" },
+    { "type": "text", "id": "label_message", "label": "Melding", "default": "Melding *" },
+    { "type": "text", "id": "message_placeholder", "label": "Melding – plassholder", "default": "Fortell kort hva du tenker — alder, ønsker, ramme. Vi tar kontakt for resten." },
+    { "type": "header", "content": "Valg" },
+    { "type": "textarea", "id": "inquiry_options", "label": "Type henvendelse (én per linje)", "default": "Privat\nBedrift / organisasjon\nPedagog / institusjon\nAnnet" },
+    { "type": "textarea", "id": "service_options", "label": "Tjenester (én per linje)", "default": "Kurs i skapende gjenbruk\nVeiledning av pedagoger\nStudiebesøk\nSkreddersydde foredrag\nKreative bursdager\nWorkshops for barn og unge\nLek og utforskning\nTeambuilding for bedrifter\nBærekraftsworkshops\nÅpne arrangementer\nKveldskurs som tilhørighet" },
+    { "type": "header", "content": "Send-knapp" },
+    { "type": "text", "id": "submit_label", "label": "Knappetekst", "default": "Send forespørsel" },
+    { "type": "text", "id": "form_note", "label": "Notat under knapp", "default": "Vi deler aldri opplysningene dine med andre." },
+    { "type": "header", "content": "Utseende" },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Bakgrunn",
+      "options": [
+        { "value": "cream", "label": "Krem" },
+        { "value": "cream-warm", "label": "Varm krem" },
+        { "value": "paper", "label": "Papir (hvit)" },
+        { "value": "moss", "label": "Mose (mørk)" }
+      ],
+      "default": "cream-warm"
+    },
+    {
+      "type": "select",
+      "id": "padding",
+      "label": "Luft over/under",
+      "options": [
+        { "value": "small", "label": "Liten" },
+        { "value": "default", "label": "Standard" },
+        { "value": "large", "label": "Stor" }
+      ],
+      "default": "default"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Punkt",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Tekst", "default": "Skreddersys etter alder og gruppe" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Kontakt",
+      "blocks": [
+        { "type": "benefit", "settings": { "text": "Skreddersys etter alder og gruppe" } },
+        { "type": "benefit", "settings": { "text": "Vi reiser til dere — eller dere kommer hit" } },
+        { "type": "benefit", "settings": { "text": "Hyggelig og uforpliktende avklaring" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

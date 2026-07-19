@@ -1,0 +1,60 @@
+{%- comment -%}
+  Renders an editorial image with responsive srcset via Shopify image helpers,
+  falling back to a bundled theme asset when no image has been picked.
+
+  Accepts:
+    image        - (object) image_picker value, may be blank
+    fallback     - (string) asset filename to use when image is blank
+    alt          - (string) alt text
+    widths       - (string) comma list for srcset, e.g. "400,600,900,1200"
+    sizes        - (string) sizes attribute
+    loading      - (string) 'lazy' (default) or 'eager'
+    fetchpriority- (string) optional, e.g. 'high' for the hero
+    class        - (string) css class(es)
+    width        - (number) intrinsic width for the fallback asset
+    height       - (number) intrinsic height for the fallback asset
+{%- endcomment -%}
+{%- liquid
+  assign img_loading = loading | default: 'lazy'
+  assign img_class = class | default: ''
+  assign img_widths = widths | default: '400,600,900,1200,1600'
+  assign img_sizes = sizes | default: '100vw'
+  assign img_width = width | default: 1200
+  assign img_height = height | default: 900
+-%}
+{%- if image != blank -%}
+  {%- if fetchpriority != blank -%}
+    {{
+      image
+      | image_url: width: 1600
+      | image_tag:
+        loading: img_loading,
+        fetchpriority: fetchpriority,
+        widths: img_widths,
+        sizes: img_sizes,
+        alt: alt,
+        class: img_class
+    }}
+  {%- else -%}
+    {{
+      image
+      | image_url: width: 1600
+      | image_tag:
+        loading: img_loading,
+        widths: img_widths,
+        sizes: img_sizes,
+        alt: alt,
+        class: img_class
+    }}
+  {%- endif -%}
+{%- else -%}
+  <img
+    src="{{ fallback | asset_url }}"
+    alt="{{ alt | escape }}"
+    class="{{ img_class }}"
+    loading="{{ img_loading }}"
+    {% if fetchpriority != blank %}fetchpriority="{{ fetchpriority }}"{% endif %}
+    width="{{ img_width }}"
+    height="{{ img_height }}"
+  >
+{%- endif -%}
