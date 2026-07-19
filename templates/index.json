@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -26,7 +35,17 @@
         "trust_point_1",
         "trust_point_2",
         "trust_point_3"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Skapende gjenbruk · Oslo",
+        "heading": "<p>Et atelier hvor <em>gjenbruksmaterialer</em> blir til skapende prosesser.</p>",
+        "subheading": "Workshops, kurs og bursdager i Oslo, ledet av to Atelierista utdannet ved Reggio Emilia-instituttet i Stockholm.",
+        "image_alt": "Caroline og Ann-Helen, de to Atelierista bak REuse Atelier",
+        "cta_primary_label": "Send forespørsel",
+        "cta_primary_link": "",
+        "cta_secondary_label": "Se tilbud",
+        "cta_secondary_link": ""
+      }
     },
     "introduction": {
       "type": "reuse-introduction",
@@ -57,7 +76,15 @@
         "value_1",
         "value_2",
         "value_3"
-      ]
+      ],
+      "settings": {
+        "anchor": "hva-er",
+        "eyebrow": "Hva er REuse Atelier?",
+        "heading": "Et åpent atelier hvor materialer som ellers blir kastet, finner nytt liv som verktøy for skapende prosesser.",
+        "lead": "Vi er Caroline og Ann-Helen — to Atelierista som driver workshops, kurs, bursdager og foredrag i Oslo. Vi tror at gjenbruksmaterialer stimulerer fantasien, kritisk tenkning og samspill — og at alle kan delta uansett alder eller bakgrunn.",
+        "background": "paper",
+        "padding": "default"
+      }
     },
     "audiences": {
       "type": "reuse-audiences",
@@ -116,7 +143,15 @@
         "audience_2",
         "audience_3",
         "audience_4"
-      ]
+      ],
+      "settings": {
+        "anchor": "malgrupper",
+        "eyebrow": "For hvem",
+        "heading": "Hvem skaper vi for?",
+        "intro": "Vi tilrettelegger ulike opplevelser for fire grupper. Velg den som beskriver deg best — så finner du tilbudene som passer.",
+        "background": "cream",
+        "padding": "default"
+      }
     },
     "offerings": {
       "type": "reuse-offerings",
@@ -171,7 +206,17 @@
         "offering_1",
         "offering_2",
         "offering_3"
-      ]
+      ],
+      "settings": {
+        "anchor": "tilbud",
+        "eyebrow": "Tilbud",
+        "heading": "Våre mest etterspurte tilbud",
+        "intro": "Tre rammer som folk kommer tilbake til. Alt skreddersys etter din gruppe.",
+        "footer_cta_label": "Se alle tilbud",
+        "footer_cta_link": "",
+        "background": "paper",
+        "padding": "default"
+      }
     },
     "approach": {
       "type": "reuse-approach",
@@ -192,7 +237,18 @@
       "block_order": [
         "paragraph_1",
         "paragraph_2"
-      ]
+      ],
+      "settings": {
+        "anchor": "filosofi",
+        "eyebrow": "Vår tilnærming",
+        "heading": "Hvorfor skapende gjenbruk virker",
+        "quote": "Det er i prosessene hender, tanker og kropp flettes sammen.",
+        "quote_attribution": "Vår praksis",
+        "cta_label": "Les mer om vår tilnærming",
+        "cta_link": "",
+        "background": "moss",
+        "padding": "default"
+      }
     },
     "founders": {
       "type": "reuse-founders",
@@ -223,7 +279,17 @@
       "block_order": [
         "founder_1",
         "founder_2"
-      ]
+      ],
+      "settings": {
+        "anchor": "team",
+        "eyebrow": "Menneskene bak",
+        "heading": "To Atelierista. Mange års erfaring.",
+        "intro": "Begge utdannet ved Reggio Emilia-instituttet i Stockholm, og med lang fartstid i barnehagefeltet.",
+        "footer_cta_label": "Møt oss",
+        "footer_cta_link": "",
+        "background": "cream-warm",
+        "padding": "default"
+      }
     },
     "gallery": {
       "type": "reuse-gallery",
@@ -232,56 +298,64 @@
           "type": "image",
           "settings": {
             "fallback": "gallery-01.svg",
-            "image_alt": "Atmosfærebilde 1 fra atelieret"
+            "image_alt": "Atmosfærebilde 1 fra atelieret",
+            "caption": ""
           }
         },
         "image_2": {
           "type": "image",
           "settings": {
             "fallback": "gallery-02.svg",
-            "image_alt": "Atmosfærebilde 2 fra atelieret"
+            "image_alt": "Atmosfærebilde 2 fra atelieret",
+            "caption": ""
           }
         },
         "image_3": {
           "type": "image",
           "settings": {
             "fallback": "gallery-03.svg",
-            "image_alt": "Atmosfærebilde 3 fra atelieret"
+            "image_alt": "Atmosfærebilde 3 fra atelieret",
+            "caption": ""
           }
         },
         "image_4": {
           "type": "image",
           "settings": {
             "fallback": "gallery-04.svg",
-            "image_alt": "Atmosfærebilde 4 fra atelieret"
+            "image_alt": "Atmosfærebilde 4 fra atelieret",
+            "caption": ""
           }
         },
         "image_5": {
           "type": "image",
           "settings": {
             "fallback": "gallery-05.svg",
-            "image_alt": "Atmosfærebilde 5 fra atelieret"
+            "image_alt": "Atmosfærebilde 5 fra atelieret",
+            "caption": ""
           }
         },
         "image_6": {
           "type": "image",
           "settings": {
             "fallback": "gallery-06.svg",
-            "image_alt": "Atmosfærebilde 6 fra atelieret"
+            "image_alt": "Atmosfærebilde 6 fra atelieret",
+            "caption": ""
           }
         },
         "image_7": {
           "type": "image",
           "settings": {
             "fallback": "gallery-07.svg",
-            "image_alt": "Atmosfærebilde 7 fra atelieret"
+            "image_alt": "Atmosfærebilde 7 fra atelieret",
+            "caption": ""
           }
         },
         "image_8": {
           "type": "image",
           "settings": {
             "fallback": "gallery-08.svg",
-            "image_alt": "Atmosfærebilde 8 fra atelieret"
+            "image_alt": "Atmosfærebilde 8 fra atelieret",
+            "caption": ""
           }
         }
       },
@@ -294,7 +368,16 @@
         "image_6",
         "image_7",
         "image_8"
-      ]
+      ],
+      "settings": {
+        "anchor": "galleri",
+        "eyebrow": "Atmosfære",
+        "heading": "Slik ser prosessene ut",
+        "intro": "Et lite utvalg fra atelieret. Klikk på et bilde for å se det større.",
+        "columns": "4",
+        "background": "paper",
+        "padding": "default"
+      }
     },
     "credentials": {
       "type": "reuse-credentials",
@@ -341,10 +424,29 @@
         "credential_3",
         "credential_4",
         "credential_5"
-      ]
+      ],
+      "settings": {
+        "anchor": "troverdighet",
+        "heading": "Vår faglige forankring",
+        "background": "cream",
+        "padding": "small"
+      }
     },
     "featured_courses": {
-      "type": "featured-courses"
+      "type": "featured-courses",
+      "settings": {
+        "anchor": "nyekurs",
+        "collection": "kommende-kurs",
+        "limit": 3,
+        "eyebrow": "Kommende kurs",
+        "heading": "Bli med på kurs",
+        "intro": "",
+        "show_view_all": true,
+        "view_all_label": "Se alle kurs",
+        "empty_text": "Ingen kommende kurs akkurat nå. Følg med — nye datoer legges ut fortløpende.",
+        "background": "paper",
+        "padding": "default"
+      }
     },
     "contact": {
       "type": "reuse-contact",
@@ -372,7 +474,31 @@
         "benefit_1",
         "benefit_2",
         "benefit_3"
-      ]
+      ],
+      "settings": {
+        "anchor": "kontakt",
+        "eyebrow": "Ta kontakt",
+        "heading": "La oss skape noe sammen",
+        "body": "Vi tar imot forespørsler om kurs, workshops, bursdager, teambuilding, foredrag og studiebesøk. Fortell hva du har i tankene — så svarer vi innen 2 virkedager.",
+        "form_eyebrow": "Send forespørsel",
+        "form_heading": "Fortell oss om planen din",
+        "form_meta": "Vi svarer som regel innen 2 virkedager. Felter merket med * er påkrevd.",
+        "label_name": "Navn *",
+        "label_email": "E-post *",
+        "label_phone": "Telefon",
+        "label_participants": "Antall deltakere",
+        "label_inquiry": "Type henvendelse *",
+        "label_service": "Hva gjelder det? *",
+        "label_date": "Ønsket dato (hvis aktuelt)",
+        "label_message": "Melding *",
+        "message_placeholder": "Fortell kort hva du tenker — alder, ønsker, ramme. Vi tar kontakt for resten.",
+        "inquiry_options": "Privat\nBedrift / organisasjon\nPedagog / institusjon\nAnnet",
+        "service_options": "Kurs i skapende gjenbruk\nVeiledning av pedagoger\nStudiebesøk\nSkreddersydde foredrag\nKreative bursdager\nWorkshops for barn og unge\nLek og utforskning\nTeambuilding for bedrifter\nBærekraftsworkshops\nÅpne arrangementer\nKveldskurs som tilhørighet",
+        "submit_label": "Send forespørsel",
+        "form_note": "Vi deler aldri opplysningene dine med andre.",
+        "background": "cream-warm",
+        "padding": "default"
+      }
     }
   },
   "order": [
