@@ -1,29 +1,120 @@
-{% comment %}
-  Course product template placeholder (Phase 2 scaffolding).
-  Displays product editorial content only. No commerce behavior:
-  no add-to-cart form, price, variants, inventory or checkout.
-{% endcomment %}
+{%- comment -%}
+  Course product page — registration focused. Uses Shopify's native product form,
+  cart and inventory. Shopify inventory is the source of truth for availability;
+  server-side validation is authoritative for quantity. All course.* metafields
+  except course.date are optional and render nothing when blank.
+{%- endcomment -%}
+{%- liquid
+  assign mf = product.metafields.course
+  assign variant = product.variants.first
+  assign low_threshold = section.settings.low_threshold | default: 3
+  assign max_qty = 0
+  if variant.inventory_management != blank and variant.inventory_policy == 'deny' and variant.inventory_quantity > 0
+    assign max_qty = variant.inventory_quantity
+  endif
+-%}
 <section class="section section--paper section--pad-default">
   <div class="section__inner">
     <div class="course-product">
-      {%- if product.featured_image -%}
-        <div class="course-product__media">
+      <div class="course-product__media">
+        {%- if product.featured_image -%}
           {{
             product.featured_image
             | image_url: width: 1200
             | image_tag:
               loading: 'eager',
+              fetchpriority: 'high',
               widths: '600, 900, 1200, 1600',
               sizes: '(min-width: 800px) 50vw, 100vw',
               alt: product.featured_image.alt | default: product.title
           }}
-        </div>
-      {%- endif -%}
+        {%- endif -%}
+      </div>
+
       <div class="course-product__body">
         <h1 class="course-product__title">{{ product.title }}</h1>
+
+        {%- render 'course-meta', product: product, layout: 'page' -%}
+
         {%- if product.description != blank -%}
-          <div class="course-product__description rte">
-            {{ product.description }}
+          <div class="course-product__description rte">{{ product.description }}</div>
+        {%- endif -%}
+
+        <div class="course-product__purchase">
+          <p class="course-product__price">{%- render 'course-price', product: product -%}</p>
+
+          <p class="course-product__availability" role="status">
+            {%- render 'course-availability', product: product, low_threshold: low_threshold -%}
+          </p>
+
+          {%- if product.available -%}
+            {%- form 'product', product, id: 'course-form', class: 'course-form' -%}
+              <input type="hidden" name="id" value="{{ variant.id }}">
+              <div class="course-form__row">
+                <label class="course-form__qty" for="course-quantity">
+                  <span class="field__label">{{ 'course.quantity' | t }}</span>
+                  <input
+                    type="number"
+                    id="course-quantity"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    {% if max_qty > 0 %}max="{{ max_qty }}"{% endif %}
+                    inputmode="numeric"
+                  >
+                </label>
+                <button type="submit" name="add" class="btn btn--primary course-form__submit">
+                  {{ 'course.add_to_cart' | t }}
+                  <span class="arrow" aria-hidden="true">&#8594;</span>
+                </button>
+              </div>
+            {%- endform -%}
+          {%- else -%}
+            <p class="course-product__soldout">{{ 'course.sold_out_note' | t }}</p>
+            <button type="button" class="btn btn--primary" disabled aria-disabled="true">
+              {{ 'course.sold_out' | t }}
+            </button>
+          {%- endif -%}
+        </div>
+
+        {%- if mf.practical_info.value != blank -%}
+          <div class="course-product__block">
+            <h2>{{ 'course.practical' | t }}</h2>
+            <p>{{ mf.practical_info.value | newline_to_br }}</p>
+          </div>
+        {%- endif -%}
+
+        {%- if mf.audience.value != blank -%}
+          <div class="course-product__block">
+            <h2>{{ 'course.audience' | t }}</h2>
+            <p>{{ mf.audience.value }}</p>
+          </div>
+        {%- endif -%}
+
+        {%- if mf.instructors != blank -%}
+          <div class="course-product__block">
+            <h2>{{ 'course.instructors' | t }}</h2>
+            {{ mf.instructors | metafield_tag }}
+          </div>
+        {%- endif -%}
+
+        {%- if mf.cancellation_policy.value != blank -%}
+          <div class="course-product__block">
+            <h2>{{ 'course.cancellation' | t }}</h2>
+            <p>{{ mf.cancellation_policy.value | newline_to_br }}</p>
+          </div>
+        {%- endif -%}
+
+        {%- assign faq_blocks = section.blocks | where: 'type', 'faq_item' -%}
+        {%- if faq_blocks.size > 0 -%}
+          <div class="course-product__block course-product__faq">
+            <h2>{{ section.settings.faq_heading }}</h2>
+            {%- for block in faq_blocks -%}
+              <details class="faq-item" {{ block.shopify_attributes }}>
+                <summary class="faq-item__q">{{ block.settings.question }}</summary>
+                <div class="faq-item__a rte">{{ block.settings.answer }}</div>
+              </details>
+            {%- endfor -%}
           </div>
         {%- endif -%}
       </div>
@@ -35,7 +126,20 @@
 {
   "name": "Kurs (produkt)",
   "settings": [
-    { "type": "paragraph", "content": "Plassholder for kursprodukt (fase 2). Viser kun redaksjonelt innhold. Kjøp, pris, varianter og betaling legges til senere." }
-  ]
+    { "type": "paragraph", "content": "Kurssiden bruker Shopifys native produktskjema, handlekurv og lager. Kursinnhold styres på produktet og via metafelt (course.*). FAQ-blokkene under er FELLES for alle kursprodukter — bruk dem til generelle vilkår og ofte stilte spørsmål, ikke produktspesifikk info." },
+    { "type": "range", "id": "low_threshold", "label": "Grense for «Få plasser igjen»", "min": 1, "max": 20, "step": 1, "default": 3, "info": "Vises kun når lageret spores og gjenstående antall er på eller under grensen." },
+    { "type": "text", "id": "faq_heading", "label": "FAQ-overskrift", "default": "Ofte stilte spørsmål" }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ (felles)",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Spørsmål", "default": "Må jeg ha erfaring fra før?" },
+        { "type": "richtext", "id": "answer", "label": "Svar", "default": "<p>Nei — alle kurs er lagt opp slik at nybegynnere er hjertelig velkomne.</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 12
 }
 {% endschema %}

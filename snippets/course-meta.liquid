@@ -1,0 +1,61 @@
+{%- comment -%}
+  Renders course facts from product metafields. Defensive: only course.date is
+  assumed to exist; every other field is optional and its row is omitted when
+  blank (no empty headings, containers, or spacing).
+
+  Accepts:
+    product - (object) required
+    layout  - (string) 'card' (compact: date + location) or
+                       'page' (full definition list). Default 'page'.
+{%- endcomment -%}
+{%- liquid
+  assign mf = product.metafields.course
+  assign layout = layout | default: 'page'
+
+  assign date_val = mf.date.value
+  assign start_time = mf.start_time.value
+  assign end_time = mf.end_time.value
+  assign location = mf.location.value
+
+  assign time_range = ''
+  if start_time != blank and end_time != blank
+    assign time_range = start_time | append: '–' | append: end_time
+  elsif start_time != blank
+    assign time_range = start_time
+  endif
+-%}
+{%- if layout == 'card' -%}
+  <ul class="course-meta course-meta--card">
+    {%- if date_val != blank -%}
+      <li class="course-meta__item course-meta__item--date">
+        {{- date_val | date: '%-d. %B %Y' -}}
+      </li>
+    {%- endif -%}
+    {%- if location != blank -%}
+      <li class="course-meta__item course-meta__item--location">{{ location }}</li>
+    {%- endif -%}
+  </ul>
+{%- else -%}
+  {%- if date_val != blank or time_range != blank or location != blank -%}
+    <dl class="course-meta course-meta--page">
+      {%- if date_val != blank -%}
+        <div class="course-meta__row">
+          <dt>{{ 'course.date' | t }}</dt>
+          <dd>{{ date_val | date: '%-d. %B %Y' }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if time_range != blank -%}
+        <div class="course-meta__row">
+          <dt>{{ 'course.time' | t }}</dt>
+          <dd>{{ time_range }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if location != blank -%}
+        <div class="course-meta__row">
+          <dt>{{ 'course.location' | t }}</dt>
+          <dd>{{ location }}</dd>
+        </div>
+      {%- endif -%}
+    </dl>
+  {%- endif -%}
+{%- endif -%}

@@ -6,7 +6,9 @@
   "header": {
     "menu_open": "Åpne meny",
     "menu_close": "Lukk meny",
-    "primary_navigation": "Hovednavigasjon"
+    "primary_navigation": "Hovednavigasjon",
+    "cart": "Handlekurv",
+    "cart_count": "{{ count }} plasser i handlekurven"
   },
   "gallery": {
     "view_image": "Åpne bilde: {{ alt }}",
@@ -18,5 +20,40 @@
   "contact": {
     "success": "Takk! Vi har mottatt henvendelsen din og svarer innen 2 virkedager.",
     "error_intro": "Noe gikk galt. Vennligst sjekk feltene under:"
+  },
+  "course": {
+    "available": "Ledige plasser",
+    "sold_out": "Utsolgt",
+    "sold_out_note": "Dette kurset er fullt.",
+    "few_left": "Få plasser igjen",
+    "date": "Dato",
+    "time": "Tid",
+    "location": "Sted",
+    "audience": "Målgruppe",
+    "price": "Pris",
+    "enroll": "Meld deg på",
+    "add_to_cart": "Legg i handlekurv",
+    "quantity": "Antall plasser",
+    "practical": "Praktisk informasjon",
+    "instructors": "Kursholdere",
+    "cancellation": "Avbestilling",
+    "faq": "Ofte stilte spørsmål",
+    "see_all": "Se alle kurs",
+    "empty": "Ingen kommende kurs akkurat nå. Følg med — nye datoer legges ut fortløpende.",
+    "read_more": "Les mer"
+  },
+  "cart": {
+    "title": "Handlekurv",
+    "empty": "Handlekurven din er tom.",
+    "product": "Kurs",
+    "quantity": "Antall",
+    "price": "Pris",
+    "total": "Sum",
+    "subtotal": "Delsum",
+    "update": "Oppdater",
+    "remove": "Fjern",
+    "checkout": "Til betaling",
+    "continue": "Se flere kurs",
+    "taxes_note": "Frakt og eventuelle avgifter beregnes i kassen."
   }
 }

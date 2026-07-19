@@ -1,0 +1,43 @@
+{%- comment -%}
+  Availability messaging for a course product. Shopify inventory is the single
+  source of truth — no custom reservation logic, no date filtering.
+
+  States:
+    - unavailable            -> "Utsolgt"
+    - available              -> "Ledige plasser"
+    - available + few left   -> "Få plasser igjen" (optional; only when the
+                                variant tracks a finite quantity we can read
+                                directly, and it is at/below the threshold)
+
+  Never claims a seat is reserved before Shopify accepts the cart/checkout.
+
+  Accepts:
+    product        - (object) required
+    low_threshold  - (number) optional, default 3
+    class          - (string) optional extra css class
+{%- endcomment -%}
+{%- liquid
+  assign variant = product.variants.first
+  assign threshold = low_threshold | default: 3
+  assign extra_class = class | default: ''
+
+  assign is_available = product.available
+  assign tracked = false
+  if variant.inventory_management != blank and variant.inventory_policy == 'deny'
+    assign tracked = true
+  endif
+
+  assign state = 'available'
+  assign label = 'course.available' | t
+  if is_available == false
+    assign state = 'sold-out'
+    assign label = 'course.sold_out' | t
+  elsif tracked and variant.inventory_quantity > 0 and variant.inventory_quantity <= threshold
+    assign state = 'low'
+    assign label = 'course.few_left' | t
+  endif
+-%}
+<span
+  class="course-availability course-availability--{{ state }} {{ extra_class }}"
+  data-course-availability="{{ state }}"
+>{{ label }}</span>
