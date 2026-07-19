@@ -1,0 +1,35 @@
+{% comment %}
+  Course collection template placeholder (Phase 2 scaffolding).
+  Lists products in the collection using the editorial course-card.
+  No commerce behavior: no pricing, add-to-cart, filtering or pagination logic.
+{% endcomment %}
+<section class="section section--cream section--pad-default">
+  <div class="section__inner">
+    <div class="section-heading">
+      <h1>{{ collection.title | default: section.settings.heading }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="section-lead rte">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+    {%- if collection.products_count > 0 -%}
+      <div class="featured-courses">
+        {%- for product in collection.products -%}
+          {%- render 'course-card', product: product -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p>{{ section.settings.empty_text }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kurssamling",
+  "settings": [
+    { "type": "paragraph", "content": "Plassholder for kurssamling (fase 2). Viser kursoversikt uten kjøpsfunksjonalitet." },
+    { "type": "text", "id": "heading", "label": "Overskrift", "default": "Kurs" },
+    { "type": "text", "id": "empty_text", "label": "Tekst når tom", "default": "Ingen kurs er publisert ennå." }
+  ]
+}
+{% endschema %}

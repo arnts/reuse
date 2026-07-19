@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" role="img">
+  <defs>
+    <filter id="grain-13798977432423648">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="48"/>
+      <feColorMatrix values="0 0 0 0 0.17 0 0 0 0 0.16 0 0 0 0 0.15 0 0 0 0.06 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter></defs>
+  <rect width="600" height="600" fill="#EDE3D3"/>
+  <rect x="0" y="240" width="600" height="360" fill="#B85C3F" opacity="0.9"/>
+  <path d="M0,270 Q150,256 300,270 T600,270" fill="none" stroke="#2C4A3E" stroke-width="2" opacity="0.55"/>
+  <path d="M0,348.00000000000006 Q150,334.00000000000006 300,348.00000000000006 T600,348.00000000000006" fill="none" stroke="#2C4A3E" stroke-width="2" opacity="0.45000000000000007"/>
+  <path d="M0,426 Q150,412 300,426 T600,426" fill="none" stroke="#2C4A3E" stroke-width="2" opacity="0.35000000000000003"/>
+  <path d="M0,504.00000000000006 Q150,490.00000000000006 300,504.00000000000006 T600,504.00000000000006" fill="none" stroke="#2C4A3E" stroke-width="2" opacity="0.25"/>
+  <circle cx="468" cy="150" r="78" fill="#A88841" opacity="0.9"/>
+  <rect width="600" height="600" fill="black" filter="url(#grain-13798977432423648)" opacity="0.4"/>
+</svg>

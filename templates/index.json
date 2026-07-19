@@ -1,0 +1,390 @@
+{
+  "sections": {
+    "hero": {
+      "type": "reuse-hero",
+      "blocks": {
+        "trust_point_1": {
+          "type": "trust_point",
+          "settings": {
+            "text": "For barn, pedagoger, bedrifter"
+          }
+        },
+        "trust_point_2": {
+          "type": "trust_point",
+          "settings": {
+            "text": "Grønland · Tøyen"
+          }
+        },
+        "trust_point_3": {
+          "type": "trust_point",
+          "settings": {
+            "text": "Skreddersys etter behov"
+          }
+        }
+      },
+      "block_order": [
+        "trust_point_1",
+        "trust_point_2",
+        "trust_point_3"
+      ]
+    },
+    "introduction": {
+      "type": "reuse-introduction",
+      "blocks": {
+        "value_1": {
+          "type": "value",
+          "settings": {
+            "title": "Skapende prosesser",
+            "text": "Hender, tanker og kropp flettes sammen rundt materialer som ikke har fasit."
+          }
+        },
+        "value_2": {
+          "type": "value",
+          "settings": {
+            "title": "Demokratiske materialer",
+            "text": "Gjenbruksmaterialer har ingen regler — de inviterer alle aldre og kjønn inn på like vilkår."
+          }
+        },
+        "value_3": {
+          "type": "value",
+          "settings": {
+            "title": "Et frirom fra det digitale",
+            "text": "Ekte møter, taktil utforskning og pause fra skjermer — for psykisk helse og fellesskap."
+          }
+        }
+      },
+      "block_order": [
+        "value_1",
+        "value_2",
+        "value_3"
+      ]
+    },
+    "audiences": {
+      "type": "reuse-audiences",
+      "blocks": {
+        "audience_1": {
+          "type": "audience",
+          "settings": {
+            "fallback": "audience-pedagoger.svg",
+            "image_alt": "Voksen og barn utforsker materialer ved et arbeidsbord.",
+            "title": "Pedagoger og institusjoner",
+            "tagline": "Faglig påfyll forankret i Reggio Emilia.",
+            "description": "Kurs, veiledning og foredrag for barnehager, skoler og fagmiljø som ønsker å utvikle praksisen med estetiske prosesser og gjenbruksmaterialer.",
+            "cta_label": "Tilbud for pedagoger",
+            "link": "#tilbud"
+          }
+        },
+        "audience_2": {
+          "type": "audience",
+          "settings": {
+            "fallback": "audience-familier.svg",
+            "image_alt": "Barn samler og bygger med naturmaterialer.",
+            "title": "Barn og familier",
+            "tagline": "Skapende opplevelser uten skjerm.",
+            "description": "Bursdager, workshops og åpen utforskning for barn og unge — meningsfulle stunder hvor hender, tanker og kropp jobber sammen.",
+            "cta_label": "Tilbud for familier",
+            "link": "#tilbud"
+          }
+        },
+        "audience_3": {
+          "type": "audience",
+          "settings": {
+            "fallback": "audience-bedrifter.svg",
+            "image_alt": "Voksne i samspill rundt skapende oppgave.",
+            "title": "Bedrifter og organisasjoner",
+            "tagline": "Teambuilding med substans og bærekraft.",
+            "description": "Skreddersydde workshops som kobler kreativitet, samarbeid og gjenbruk — alternativ til standard teambuilding.",
+            "cta_label": "Tilbud for bedrifter",
+            "link": "#tilbud"
+          }
+        },
+        "audience_4": {
+          "type": "audience",
+          "settings": {
+            "fallback": "audience-fellesskap.svg",
+            "image_alt": "Hender som arbeider sammen rundt et bord.",
+            "title": "Fellesskap og møteplass",
+            "tagline": "Et åpent rom for tilhørighet.",
+            "description": "Drop-in og åpne arrangementer for alle som ønsker et frirom fra det digitale, knytte nye bekjentskap eller bare skape sammen.",
+            "cta_label": "Tilbud for fellesskap",
+            "link": "#tilbud"
+          }
+        }
+      },
+      "block_order": [
+        "audience_1",
+        "audience_2",
+        "audience_3",
+        "audience_4"
+      ]
+    },
+    "offerings": {
+      "type": "reuse-offerings",
+      "blocks": {
+        "offering_1": {
+          "type": "offering",
+          "settings": {
+            "fallback": "service-kurs.svg",
+            "image_alt": "Pedagoger i workshop rundt et bord med materialer.",
+            "audience_tag": "For pedagoger",
+            "title": "Kurs i skapende gjenbruk",
+            "summary": "Praksisnære kurs på kveldstid og i helger for barnehager og skoler.",
+            "for_whom": "Pedagoger, lærere, fagledere",
+            "format": "Kveld eller helg · 3–6 timer · gruppe",
+            "takeaway": "Konkrete metoder og praktisk erfaring som kan tas rett tilbake til arbeidshverdagen.",
+            "cta_label": "Forespør kurs i skapende gjenbruk",
+            "cta_link": "#kontakt"
+          }
+        },
+        "offering_2": {
+          "type": "offering",
+          "settings": {
+            "fallback": "service-bursdag.svg",
+            "image_alt": "Bursdagsbord med kreative materialer og barnehender.",
+            "audience_tag": "For familier",
+            "title": "Kreative bursdager",
+            "summary": "Bursdagsfeiring som er like minneverdig som meningsfull.",
+            "for_whom": "Barn fra ca. 4 år · 6–15 deltakere",
+            "format": "2 timer · etter avtale",
+            "takeaway": "En bursdag barna husker, og en pause fra skjermer for foreldre og venner.",
+            "cta_label": "Forespør kreative bursdager",
+            "cta_link": "#kontakt"
+          }
+        },
+        "offering_3": {
+          "type": "offering",
+          "settings": {
+            "fallback": "service-teambuilding.svg",
+            "image_alt": "Kollegaer arbeider sammen rundt en kreativ oppgave.",
+            "audience_tag": "For bedrifter",
+            "title": "Teambuilding for bedrifter",
+            "summary": "Samarbeid og kreativitet — uten klisjeer.",
+            "for_whom": "Team og avdelinger · 6–25 deltakere",
+            "format": "2–4 timer · skreddersys",
+            "takeaway": "Ny innsikt i hverandre, samtaler som tar med seg verdier som mot, lytting og samspill.",
+            "cta_label": "Forespør teambuilding for bedrifter",
+            "cta_link": "#kontakt"
+          }
+        }
+      },
+      "block_order": [
+        "offering_1",
+        "offering_2",
+        "offering_3"
+      ]
+    },
+    "approach": {
+      "type": "reuse-approach",
+      "blocks": {
+        "paragraph_1": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Reggio Emilia-tradisjonen lærer oss at materialer er språk. Når vi tilbyr gjenbruksmaterialer fremfor ferdige produkter, skifter vi fokus fra <em>resultat</em> til <em>prosess</em>. Det er der den virkelige læringen og opplevelsen ligger.</p>"
+          }
+        },
+        "paragraph_2": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Materialer uten klare regler tvinger oss til å tenke selv. De er en demokratisk inngang som ikke favoriserer de som «kan», men inviterer alle.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "paragraph_1",
+        "paragraph_2"
+      ]
+    },
+    "founders": {
+      "type": "reuse-founders",
+      "blocks": {
+        "founder_1": {
+          "type": "founder",
+          "settings": {
+            "fallback": "team-caroline.jpg",
+            "image_alt": "Portrett av Caroline",
+            "name": "Caroline",
+            "role": "Atelierista",
+            "credentials": "Atelierista — Reggio Emilia-instituttet, Stockholm\nMaster i barnehagekunnskap, fordypning estetiske fag — Oslomet\nLang erfaring med de yngste barna",
+            "bio": "Caroline har et brennende engasjement for estetiske prosesser og er særlig opptatt av hvordan de minste møter materialer på sine egne premisser."
+          }
+        },
+        "founder_2": {
+          "type": "founder",
+          "settings": {
+            "fallback": "team-ann-helen.jpg",
+            "image_alt": "Portrett av Ann-Helen",
+            "name": "Ann-Helen",
+            "role": "Atelierista og Pedagogista",
+            "credentials": "Atelierista og Pedagogista — Reggio Emilia-instituttet, Stockholm\nUtdannet barnehagelærer\nLang erfaring med de eldste barna",
+            "bio": "Ann-Helen kombinerer pedagogikkfaglig dybde med kreativ praksis — særlig i arbeid med barn på vei mot skolealder, ungdom og voksne."
+          }
+        }
+      },
+      "block_order": [
+        "founder_1",
+        "founder_2"
+      ]
+    },
+    "gallery": {
+      "type": "reuse-gallery",
+      "blocks": {
+        "image_1": {
+          "type": "image",
+          "settings": {
+            "fallback": "gallery-01.svg",
+            "image_alt": "Atmosfærebilde 1 fra atelieret"
+          }
+        },
+        "image_2": {
+          "type": "image",
+          "settings": {
+            "fallback": "gallery-02.svg",
+            "image_alt": "Atmosfærebilde 2 fra atelieret"
+          }
+        },
+        "image_3": {
+          "type": "image",
+          "settings": {
+            "fallback": "gallery-03.svg",
+            "image_alt": "Atmosfærebilde 3 fra atelieret"
+          }
+        },
+        "image_4": {
+          "type": "image",
+          "settings": {
+            "fallback": "gallery-04.svg",
+            "image_alt": "Atmosfærebilde 4 fra atelieret"
+          }
+        },
+        "image_5": {
+          "type": "image",
+          "settings": {
+            "fallback": "gallery-05.svg",
+            "image_alt": "Atmosfærebilde 5 fra atelieret"
+          }
+        },
+        "image_6": {
+          "type": "image",
+          "settings": {
+            "fallback": "gallery-06.svg",
+            "image_alt": "Atmosfærebilde 6 fra atelieret"
+          }
+        },
+        "image_7": {
+          "type": "image",
+          "settings": {
+            "fallback": "gallery-07.svg",
+            "image_alt": "Atmosfærebilde 7 fra atelieret"
+          }
+        },
+        "image_8": {
+          "type": "image",
+          "settings": {
+            "fallback": "gallery-08.svg",
+            "image_alt": "Atmosfærebilde 8 fra atelieret"
+          }
+        }
+      },
+      "block_order": [
+        "image_1",
+        "image_2",
+        "image_3",
+        "image_4",
+        "image_5",
+        "image_6",
+        "image_7",
+        "image_8"
+      ]
+    },
+    "credentials": {
+      "type": "reuse-credentials",
+      "blocks": {
+        "credential_1": {
+          "type": "credential",
+          "settings": {
+            "label": "Reggio Emilia-instituttet",
+            "detail": "Stockholm"
+          }
+        },
+        "credential_2": {
+          "type": "credential",
+          "settings": {
+            "label": "Atelierista",
+            "detail": "utdanning"
+          }
+        },
+        "credential_3": {
+          "type": "credential",
+          "settings": {
+            "label": "Pedagogista",
+            "detail": "utdanning"
+          }
+        },
+        "credential_4": {
+          "type": "credential",
+          "settings": {
+            "label": "Master estetiske fag",
+            "detail": "Oslomet"
+          }
+        },
+        "credential_5": {
+          "type": "credential",
+          "settings": {
+            "label": "Lang fartstid",
+            "detail": "i barnehagefeltet"
+          }
+        }
+      },
+      "block_order": [
+        "credential_1",
+        "credential_2",
+        "credential_3",
+        "credential_4",
+        "credential_5"
+      ]
+    },
+    "featured_courses": {
+      "type": "featured-courses"
+    },
+    "contact": {
+      "type": "reuse-contact",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "text": "Skreddersys etter alder og gruppe"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "text": "Vi reiser til dere — eller dere kommer hit"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "text": "Hyggelig og uforpliktende avklaring"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "introduction",
+    "audiences",
+    "offerings",
+    "approach",
+    "founders",
+    "gallery",
+    "credentials",
+    "featured_courses",
+    "contact"
+  ]
+}

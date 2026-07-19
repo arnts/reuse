@@ -1,0 +1,39 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "REuse Atelier",
+    "theme_version": "1.0.0",
+    "theme_author": "REuse Atelier",
+    "theme_documentation_url": "https://github.com/arnts/reuse",
+    "theme_support_url": "https://github.com/arnts/reuse/issues"
+  },
+  {
+    "name": "Sosiale medier",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram-lenke",
+        "info": "Full URL til Instagram-profilen.",
+        "default": "https://www.instagram.com/"
+      }
+    ]
+  },
+  {
+    "name": "SEO og deling",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Delingsbilde",
+        "info": "Vises når siden deles i sosiale medier (Open Graph / Twitter)."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_org_jsonld",
+        "label": "Aktiver Organization-strukturdata (JSON-LD)",
+        "default": true
+      }
+    ]
+  }
+]

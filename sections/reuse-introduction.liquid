@@ -1,0 +1,116 @@
+<section
+  {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %}
+  class="section section--{{ section.settings.background }} section--pad-{{ section.settings.padding }}"
+>
+  <div class="section__inner">
+    <div class="intro">
+      <div class="intro__head fade-in">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="eyebrow eyebrow--ochre">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2>{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.lead != blank -%}
+          <p class="intro__lead">{{ section.settings.lead }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="value-grid fade-in">
+          {%- for block in section.blocks -%}
+            <li class="value-card" {{ block.shopify_attributes }}>
+              {%- if block.settings.title != blank -%}
+                <h3>{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p>{{ block.settings.text }}</p>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Introduksjon",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anker-ID",
+      "info": "Brukes for lenker på samme side (f.eks. hva-er).",
+      "default": "hva-er"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Overtekst",
+      "default": "Hva er REuse Atelier?"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Overskrift",
+      "default": "Et åpent atelier hvor materialer som ellers blir kastet, finner nytt liv som verktøy for skapende prosesser."
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Ingress",
+      "default": "Vi er Caroline og Ann-Helen — to Atelierista som driver workshops, kurs, bursdager og foredrag i Oslo. Vi tror at gjenbruksmaterialer stimulerer fantasien, kritisk tenkning og samspill — og at alle kan delta uansett alder eller bakgrunn."
+    },
+    {
+      "type": "header",
+      "content": "Utseende"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Bakgrunn",
+      "options": [
+        { "value": "cream", "label": "Krem" },
+        { "value": "cream-warm", "label": "Varm krem" },
+        { "value": "paper", "label": "Papir (hvit)" },
+        { "value": "moss", "label": "Mose (mørk)" }
+      ],
+      "default": "paper"
+    },
+    {
+      "type": "select",
+      "id": "padding",
+      "label": "Luft over/under",
+      "options": [
+        { "value": "small", "label": "Liten" },
+        { "value": "default", "label": "Standard" },
+        { "value": "large", "label": "Stor" }
+      ],
+      "default": "default"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Verdikort",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Tittel", "default": "Skapende prosesser" },
+        { "type": "textarea", "id": "text", "label": "Tekst", "default": "Hender, tanker og kropp flettes sammen rundt materialer som ikke har fasit." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Introduksjon",
+      "blocks": [
+        { "type": "value", "settings": { "title": "Skapende prosesser", "text": "Hender, tanker og kropp flettes sammen rundt materialer som ikke har fasit." } },
+        { "type": "value", "settings": { "title": "Demokratiske materialer", "text": "Gjenbruksmaterialer har ingen regler — de inviterer alle aldre og kjønn inn på like vilkår." } },
+        { "type": "value", "settings": { "title": "Et frirom fra det digitale", "text": "Ekte møter, taktil utforskning og pause fra skjermer — for psykisk helse og fellesskap." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

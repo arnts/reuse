@@ -1,0 +1,141 @@
+<section
+  {% if section.settings.anchor != blank %}id="{{ section.settings.anchor }}"{% endif %}
+  class="section section--{{ section.settings.background }} section--pad-{{ section.settings.padding }}"
+>
+  <div class="section__inner">
+    <div class="section-head fade-in">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="eyebrow eyebrow--ochre">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2>{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <p>{{ section.settings.intro }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="fade-in">
+        <div class="gallery gallery--cols-{{ section.settings.columns }}" data-gallery>
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign caption = block.settings.caption | default: block.settings.image_alt
+              if block.settings.image != blank
+                assign full_url = block.settings.image | image_url: width: 1400
+              else
+                assign full_url = block.settings.fallback | asset_url
+              endif
+            -%}
+            <button
+              type="button"
+              class="gallery__item"
+              data-gallery-trigger
+              aria-label="{{ 'gallery.view_image' | t: alt: block.settings.image_alt }}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 800
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '200,300,400,600,800',
+                    sizes: '(max-width: 600px) 50vw, 25vw',
+                    alt: block.settings.image_alt,
+                    data-full: full_url,
+                    data-caption: caption
+                }}
+              {%- else -%}
+                <img
+                  src="{{ block.settings.fallback | asset_url }}"
+                  alt="{{ block.settings.image_alt | escape }}"
+                  loading="lazy"
+                  width="600"
+                  height="600"
+                  data-full="{{ full_url }}"
+                  data-caption="{{ caption | escape }}"
+                >
+              {%- endif -%}
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Galleri",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anker-ID", "default": "galleri" },
+    { "type": "text", "id": "eyebrow", "label": "Overtekst", "default": "Atmosfære" },
+    { "type": "text", "id": "heading", "label": "Overskrift", "default": "Slik ser prosessene ut" },
+    { "type": "textarea", "id": "intro", "label": "Ingress", "default": "Et lite utvalg fra atelieret. Klikk på et bilde for å se det større." },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Kolonner (desktop)",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "4"
+    },
+    { "type": "header", "content": "Utseende" },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Bakgrunn",
+      "options": [
+        { "value": "cream", "label": "Krem" },
+        { "value": "cream-warm", "label": "Varm krem" },
+        { "value": "paper", "label": "Papir (hvit)" },
+        { "value": "moss", "label": "Mose (mørk)" }
+      ],
+      "default": "paper"
+    },
+    {
+      "type": "select",
+      "id": "padding",
+      "label": "Luft over/under",
+      "options": [
+        { "value": "small", "label": "Liten" },
+        { "value": "default", "label": "Standard" },
+        { "value": "large", "label": "Stor" }
+      ],
+      "default": "default"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Bilde",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Bilde" },
+        { "type": "text", "id": "fallback", "label": "Reservebilde (asset-filnavn)", "default": "gallery-01.svg" },
+        { "type": "text", "id": "image_alt", "label": "Alternativ tekst" },
+        { "type": "text", "id": "caption", "label": "Bildetekst" }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "Galleri",
+      "blocks": [
+        { "type": "image", "settings": { "fallback": "gallery-01.svg", "image_alt": "Atmosfærebilde 1 fra atelieret" } },
+        { "type": "image", "settings": { "fallback": "gallery-02.svg", "image_alt": "Atmosfærebilde 2 fra atelieret" } },
+        { "type": "image", "settings": { "fallback": "gallery-03.svg", "image_alt": "Atmosfærebilde 3 fra atelieret" } },
+        { "type": "image", "settings": { "fallback": "gallery-04.svg", "image_alt": "Atmosfærebilde 4 fra atelieret" } },
+        { "type": "image", "settings": { "fallback": "gallery-05.svg", "image_alt": "Atmosfærebilde 5 fra atelieret" } },
+        { "type": "image", "settings": { "fallback": "gallery-06.svg", "image_alt": "Atmosfærebilde 6 fra atelieret" } },
+        { "type": "image", "settings": { "fallback": "gallery-07.svg", "image_alt": "Atmosfærebilde 7 fra atelieret" } },
+        { "type": "image", "settings": { "fallback": "gallery-08.svg", "image_alt": "Atmosfærebilde 8 fra atelieret" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

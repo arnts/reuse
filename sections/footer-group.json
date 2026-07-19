@@ -1,0 +1,44 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "reuse-footer",
+      "settings": {
+        "brand": "REuse Atelier",
+        "tagline": "Et atelier for skapende prosesser med gjenbruksmaterialer — i Oslo.",
+        "credit": "Laget med omtanke"
+      },
+      "blocks": {
+        "col-nav": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Naviger",
+            "link_1_label": "Hjem", "link_1_url": "/",
+            "link_2_label": "Tilbud", "link_2_url": "#tilbud",
+            "link_3_label": "Om oss", "link_3_url": "#team",
+            "link_4_label": "Kontakt", "link_4_url": "#kontakt"
+          }
+        },
+        "col-contact": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Kontakt",
+            "link_1_label": "Send forespørsel →", "link_1_url": "#kontakt",
+            "link_2_label": "Instagram (kommer)", "link_2_url": "https://www.instagram.com/"
+          }
+        },
+        "col-place": {
+          "type": "text_column",
+          "settings": {
+            "heading": "Sted",
+            "text": "Grønland / Tøyen, Oslo, Norge",
+            "subtext": "Lokaler under planlegging"
+          }
+        }
+      },
+      "block_order": ["col-nav", "col-contact", "col-place"]
+    }
+  },
+  "order": ["footer"]
+}

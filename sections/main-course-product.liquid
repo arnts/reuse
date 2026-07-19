@@ -1,0 +1,41 @@
+{% comment %}
+  Course product template placeholder (Phase 2 scaffolding).
+  Displays product editorial content only. No commerce behavior:
+  no add-to-cart form, price, variants, inventory or checkout.
+{% endcomment %}
+<section class="section section--paper section--pad-default">
+  <div class="section__inner">
+    <div class="course-product">
+      {%- if product.featured_image -%}
+        <div class="course-product__media">
+          {{
+            product.featured_image
+            | image_url: width: 1200
+            | image_tag:
+              loading: 'eager',
+              widths: '600, 900, 1200, 1600',
+              sizes: '(min-width: 800px) 50vw, 100vw',
+              alt: product.featured_image.alt | default: product.title
+          }}
+        </div>
+      {%- endif -%}
+      <div class="course-product__body">
+        <h1 class="course-product__title">{{ product.title }}</h1>
+        {%- if product.description != blank -%}
+          <div class="course-product__description rte">
+            {{ product.description }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kurs (produkt)",
+  "settings": [
+    { "type": "paragraph", "content": "Plassholder for kursprodukt (fase 2). Viser kun redaksjonelt innhold. Kjøp, pris, varianter og betaling legges til senere." }
+  ]
+}
+{% endschema %}

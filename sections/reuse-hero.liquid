@@ -1,0 +1,151 @@
+<section class="hero-home">
+  <div class="hero-home__inner">
+    <div class="hero-home__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="hero-home__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="hero-home__headline">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="hero-home__sub">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.cta_primary_label != blank or section.settings.cta_secondary_label != blank -%}
+        <div class="hero-home__actions">
+          {%- if section.settings.cta_primary_label != blank -%}
+            <a href="{{ section.settings.cta_primary_link }}" class="btn btn--clay">
+              {{ section.settings.cta_primary_label }}
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.cta_secondary_label != blank -%}
+            <a href="{{ section.settings.cta_secondary_link }}" class="btn btn--secondary">
+              {{ section.settings.cta_secondary_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="hero-home__trust">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <div class="hero-home__media">
+      <div class="hero-home__shape hero-home__shape--clay" aria-hidden="true"></div>
+      <div class="hero-home__shape hero-home__shape--ochre" aria-hidden="true"></div>
+      <div class="hero-home__image">
+        {% render 'editorial-image',
+          image: section.settings.image,
+          fallback: 'hero-main.jpg',
+          alt: section.settings.image_alt,
+          widths: '400,600,800,1000,1200,1400',
+          sizes: '(max-width: 600px) 92vw, (max-width: 960px) 70vw, 540px',
+          loading: 'eager',
+          fetchpriority: 'high',
+          width: 1400,
+          height: 1867
+        %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Overtekst",
+      "default": "Skapende gjenbruk · Oslo"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Overskrift",
+      "info": "Bruk kursiv for å framheve ord (vises i klay-fargen).",
+      "default": "<p>Et atelier hvor <em>gjenbruksmaterialer</em> blir til skapende prosesser.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Underoverskrift",
+      "default": "Workshops, kurs og bursdager i Oslo, ledet av to Atelierista utdannet ved Reggio Emilia-instituttet i Stockholm."
+    },
+    {
+      "type": "header",
+      "content": "Bilde"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hovedbilde",
+      "info": "Erstatter standardbildet. Lastes med høy prioritet (ikke lazy)."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Alternativ tekst",
+      "default": "Caroline og Ann-Helen, de to Atelierista bak REuse Atelier"
+    },
+    {
+      "type": "header",
+      "content": "Handlingsknapper"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primærknapp – tekst",
+      "default": "Send forespørsel"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_link",
+      "label": "Primærknapp – lenke"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Sekundærknapp – tekst",
+      "default": "Se tilbud"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_link",
+      "label": "Sekundærknapp – lenke"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_point",
+      "name": "Tillitspunkt",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Tekst",
+          "default": "For barn, pedagoger, bedrifter"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        { "type": "trust_point", "settings": { "text": "For barn, pedagoger, bedrifter" } },
+        { "type": "trust_point", "settings": { "text": "Grønland · Tøyen" } },
+        { "type": "trust_point", "settings": { "text": "Skreddersys etter behov" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

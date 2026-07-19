@@ -1,0 +1,38 @@
+{% comment %}
+  Course card placeholder (Phase 2 scaffolding).
+  Renders basic product info only. No commerce behavior (no add-to-cart,
+  cart, checkout, variants, inventory, metafields or pricing logic).
+
+  Accepts:
+    product - a product object
+{% endcomment %}
+{%- liquid
+  assign product = product
+-%}
+{%- if product != blank -%}
+  <article class="course-card">
+    <a href="{{ product.url }}" class="course-card__link">
+      {%- if product.featured_image -%}
+        <div class="course-card__media">
+          {{
+            product.featured_image
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              widths: '400, 600, 800',
+              sizes: '(min-width: 700px) 33vw, 100vw',
+              alt: product.featured_image.alt | default: product.title
+          }}
+        </div>
+      {%- endif -%}
+      <div class="course-card__body">
+        <h3 class="course-card__title">{{ product.title }}</h3>
+        {%- if product.description != blank -%}
+          <p class="course-card__summary">
+            {{ product.description | strip_html | truncatewords: 24 }}
+          </p>
+        {%- endif -%}
+      </div>
+    </a>
+  </article>
+{%- endif -%}

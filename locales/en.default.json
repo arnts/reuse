@@ -1,0 +1,22 @@
+{
+  "general": {
+    "skip_to_content": "Skip to main content",
+    "back_to_home": "REuse Atelier — back to home page"
+  },
+  "header": {
+    "menu_open": "Open menu",
+    "menu_close": "Close menu",
+    "primary_navigation": "Primary navigation"
+  },
+  "gallery": {
+    "view_image": "Open image: {{ alt }}",
+    "dialog_label": "Image viewer",
+    "close": "Close image viewer",
+    "previous": "Previous image",
+    "next": "Next image"
+  },
+  "contact": {
+    "success": "Thank you! We have received your enquiry and will reply within 2 working days.",
+    "error_intro": "Something went wrong. Please check the fields below:"
+  }
+}
